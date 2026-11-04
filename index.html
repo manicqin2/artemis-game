@@ -62,8 +62,7 @@ const M=[
 {n:'Artemis I',s:'Uncrewed test flight, November 2022',w:'Orion is home. Artemis II is unlocked.',p:[
 {t:'Nov 16, 2022',n:'Liftoff',k:'fl',m:'asc',z:'up',f:'SLS lights 39 million newtons of thrust at Pad 39B. Start the countdown, then steer the rocket until it leaves the atmosphere at 100 km. The boosters fall away at about two minutes and the abort tower a little after three.'},
 {t:'About 50 min after launch',n:'Reach orbit',k:'fl',m:'orb',f:'The core stage drops away at about 160 km, but Orion is moving too slowly to stay up. At the high point of the path, fire the upper stage forward to lift the low point above 150 km.'},
-{t:'About 1½ hours after launch',n:'Trans-lunar injection',k:'fl',m:'tli',f:'The upper stage burns for about 18 minutes to send Orion toward the Moon. The Moon keeps moving, so you aim where it will be in about four days, and Orion must still be able to come home.',o:'Artemis I looped around the Moon and on Nov 28 reached 432,210 km from Earth, a record for a spacecraft built for humans.'},
-{t:'Dec 11, 12:40 pm EST',n:'Entry and splashdown',k:'fl',m:'rtn',gl:8,f:'Orion hits the atmosphere at about 40,000 km/h. Set the entry angle: too shallow and it skips back into space, too steep and the g-load climbs. No crew is on board, so up to 8 g still counts as nominal. Parachutes then slow it to about 30 km/h off Baja California.',o:'25½ days and 2.2 million km later, Artemis I had tested Orion’s heat shield and recovery system.'}
+{t:'Nov 16 – Dec 11, 2022',n:'To the Moon and home',k:'fl',m:'tli',ret:1,gl:8,f:'The upper stage burns for about 18 minutes to send Orion toward the Moon. Aim where the Moon will be in about four days, and make sure Orion comes back. On the way home, set the entry angle (no crew, so up to 8 g is fine), then deploy the parachutes yourself: drogues at 8 km, mains at 3 km.',o:'Artemis I looped around the Moon, reached a record 432,210 km from Earth, and came home after 25½ days and 2.2 million km.'}
 ]},
 {n:'Artemis II',s:'Crewed lunar flyby, April 2026',w:'Humans are back at the Moon. Artemis III is unlocked.',p:[
 {t:'Apr 1, 2026 · 6:35 pm EDT',n:'Liftoff',k:'fl',m:'asc',z:'up',f:'Reid Wiseman, Victor Glover, Christina Koch and Jeremy Hansen ride SLS from Pad 39B in Orion “Integrity”. Count down, then steer the climb until you pass 100 km and leave the air behind.'},
@@ -93,7 +92,6 @@ const QZ={
 '0-0':['What fuel does the SLS core stage burn?',['Liquid hydrogen and liquid oxygen','Refined kerosene and liquid oxygen','Liquid methane and oxygen'],0,'Its four RS-25 engines burn super-cold liquid hydrogen with liquid oxygen. The two side boosters burn solid fuel.'],
 '0-1':['What keeps a spacecraft in orbit?',['It keeps falling around Earth and missing the ground','Gravity switches off above the atmosphere','Its engines keep pushing it up'],0,'Orbit means falling around the planet without ever hitting it.'],
 '0-2':['What is the goal of a trans-lunar injection burn?',['To speed Orion up so it heads for the Moon','To slow Orion down for its trip back to Earth','To pull Orion into a stable orbit around the Moon'],0,'It adds speed so the path reaches the Moon’s orbit.'],
-'0-3':['Why does Orion need a heat shield?',['Air friction heats it to about 2,800 °C','The Sun is much hotter near the Moon','Moon dust burns when it touches the capsule'],0,'Hitting the air at about 11,000 m/s makes the shield glow.'],
 '1-0':['What gives SLS most of its liftoff thrust?',['The two boosters on its sides','The upper stage engine','The four engines on the core stage'],0,'The two solid boosters supply more than 75% of liftoff thrust.'],
 '1-1':['Why check Orion in Earth orbit before leaving for the Moon?',['To test its life support while still close to home','To top up fuel at a space station','To drop off the booster rockets'],0,'If something is wrong, the crew is still near Earth.'],
 '1-2':['What is the main purpose of Artemis II?',['To fly astronauts around the Moon and back','To land astronauts at the Moon’s south pole','To build a base on the Moon'],0,'It is the first crewed test of Orion on a trip to the Moon.'],
@@ -110,7 +108,7 @@ const QZ={
 '4-1':['What can Moon rock samples tell scientists?',['How the Moon and Earth formed','Where life lives on the Moon','When the next solar flare will hit'],0,'Moon rocks are a record of the early solar system.'],
 '4-2':['Which planet is the long-term goal after the Moon?',['Mars','Venus','Jupiter'],0,'What NASA learns on the Moon helps prepare for Mars.']
 };
-const HOW={asc:'Tap when the countdown marker reaches the green zone (T−6) to light the four main engines. The boosters fire at T−0. Once the tower is clear, hold to tilt toward the horizon and release to keep the angle. Put the white dot on the green diamond and keep the air-load bar out of the red until you pass 100 km.',ld:'Hold to fire the descent engine. Touch down slowly and keep fuel in reserve.',dk:'Hold to thrust up, let go to drift down. Stay inside the funnel as it narrows to the docking port.',tim:'Tap the button when the marker crosses the green zone.',orb:'Watch the timer: hold to burn forward when Orion nears the high point of its path. Stop when the low point is above 150 km, then press Done.',tli:'Wait for the green zone, then hold to burn. Stop when the dotted path loops around the Moon marker and comes back to Earth, then tap Coast. Too much speed and Orion never returns.',rtn:'Set the entry angle before Orion reaches the air: hold to steepen, release to flatten. Too shallow and Orion skips back into space; too steep and the g-load climbs. Then the autopilot flies the entry and the parachutes open by themselves.'};
+const HOW={asc:'Tap when the countdown marker reaches the green zone (T−6) to light the four main engines. The boosters fire at T−0. Once the tower is clear, hold to tilt toward the horizon and release to keep the angle. Put the white dot on the green diamond and keep the air-load bar out of the red until you pass 100 km.',ld:'Hold to fire the descent engine. Touch down slowly and keep fuel in reserve.',dk:'Hold to thrust up, let go to drift down. Stay inside the funnel as it narrows to the docking port.',tim:'Tap the button when the marker crosses the green zone.',orb:'Watch the timer: hold to burn forward when Orion nears the high point of its path. Stop when the low point is above 150 km, then press Done.',tli:'Wait for the green zone, then hold to burn. Stop when the dotted path loops around the Moon marker and comes back to Earth, then tap Coast. Too much speed and Orion never returns.',rtn:'Set the entry angle before Orion reaches the air: hold to steepen, release to flatten. Too shallow and Orion skips back into space; too steep and the g-load climbs. The autopilot flies the entry, then you deploy the parachutes: tap for the drogues at 8 km and the mains at 3 km.'};
 
 /* ---------- screens ---------- */
 const sr=n=>'★'.repeat(n)+'☆'.repeat(3-n),tot=m=>M[m].p.reduce((a,_,i)=>a+(sv[m+'-'+i]||0),0),pass=k=>sv[k]>0&&(!QZ[k]||sv['p'+k]),cmp=m=>M[m].p.every((_,i)=>pass(m+'-'+i));
@@ -133,7 +131,7 @@ function tl(m){
 }
 function brief(i){
  S.p=i;G=null;const A=M[S.m],P=A.p[i];setH(A.n+' · step '+(i+1)+' of '+A.p.length,'');
- show(`<div class="cd"><div class="tm">${P.t}</div><h2>${P.n}</h2><p>${P.f}</p><div class="how">${HOW[P.fn?'dk':P.k=='fl'?P.m:P.k]}</div><button class="btn" id="go">Begin</button><button class="btn g" id="bk">Back</button></div>`);
+ show(`<div class="cd"><div class="tm">${P.t}</div><h2>${P.n}</h2><p>${P.f}</p><div class="how">${(P.ret?HOW.tli+' '+HOW.rtn:HOW[P.fn?'dk':P.k=='fl'?P.m:P.k])}</div><button class="btn" id="go">Begin</button><button class="btn g" id="bk">Back</button></div>`);
  $('#go').onclick=start;$('#bk').onclick=()=>tl(S.m);
 }
 function lock(){SC.style.pointerEvents='none';clearTimeout(lock.t);lock.t=setTimeout(()=>{SC.style.pointerEvents=''},1500)}
@@ -301,9 +299,13 @@ function fli(){
  const P=G.P,m=P.m;if(m=='asc'){Object.assign(G,{s:[0,RE,0,0,0],th:0,pc:95e4,sep:0,pp:1,cd:8,es:0,hp:1,rd:0,sky:.1,db:[],pf:[],msg:'',mt:0,qa:0,tw:0,why:'',f:{srb:1,las:1,core:1,arr:0,off:1,nb:0}});return}G.Z={ph:127*PI/180,at:3};Object.assign(G,{dv:0,dm:m=='orb'?1200:m=='tli'?3400:0,gp:0,g:0,co:0,cc:0,dmn:1e99,po:0,ec:0,pdT:0,cap:m=='orb'?12:90,w:1,k:0,rv:0,tr:[],why:''});
  if(m=='orb'){const ra=RE+160e3,hh=ra*7300,p=hh*hh/MU,e=1-p/ra,f=-.17,r=p/(1-e*Math.cos(f)),vr=-(MU/hh)*e*Math.sin(f),vt=hh/r,c=Math.cos(f),n=Math.sin(f);G.s=[r*c,r*n,vr*c-vt*n,vr*n+vt*c,0]}
  else if(m=='tli'){const r=RE+185e3,v=Math.sqrt(MU/r),a=-68*PI/180;G.s=[r*Math.cos(a),r*Math.sin(a),-v*Math.sin(a),v*Math.cos(a),0]}
- else Object.assign(G,{ep:0,ea:3,et2:0,ca:1e4,s:[0,RE+1.205e5,11e3,0,0]})
+ else rtnI()
  if(m!='rtn')pr()}
-function flE(w,q){G.why=w;fin(q)}
+function rtnI(){Object.assign(G,{ep:0,ea:3,et2:0,ca:1e4,s:[0,RE+1.205e5,11e3,0,0],tr:[],g:0,gp:0,co:0})}
+function flE(w,q){
+ if(G.P.ret&&G.P.m=='tli'&&q>0){G.q1=q;G.why1=w;G.P=Object.assign({},G.P,{m:'rtn'});rtnI();G.rd=1.2;held=false;AB.classList.remove('on');document.body.classList.remove('fl','co');AB.textContent='Hold: steeper · release: flatter';ban('Orion is home: set the entry angle','#62e3ff');return}
+ if(G.q1!=null){w=G.why1+w;q=q>0?(G.q1+q)/2:0}
+ G.why=w;fin(q)}
 function flD(){const o=oe(G.s);flE(o.pe<1e5?'The low point is only '+km(o.pe)+' km up, inside the air. ':'Orbit: '+km(o.pe)+' × '+km(o.ap)+' km. ',o.pe>=1.5e5?(o.ap-o.pe<4e5?1:.75):o.pe>=1e5?.5:0)}
 function flU(dt){
  if(G.P.m=='asc')return asU(dt);
@@ -313,16 +315,20 @@ function flU(dt){
   if(G.ep==0){G.et2+=dt;G.ea=cl(G.ea+(held?.8:-.4)*dt,3,9);
    if(G.et2>=8){G.ep=1;const a=G.ea*PI/180;G.s=[0,RE+1.205e5,11e3*Math.cos(a),-11e3*Math.sin(a),0];ban('Entry interface at '+G.ea.toFixed(1)+'°','#62e3ff');AB.textContent='Autopilot is flying the entry'}
    return}
-  if(G.ep==2){const c0=G.ca;G.ca-=dt*(G.ca>3e3?2000:750);
-   if(c0>8e3&&G.ca<=8e3)ban('Drogue parachutes','#5dffa8');if(c0>3e3&&G.ca<=3e3)ban('Main parachutes','#5dffa8');
-   if(G.ca<=0)return flE(G.why2+'Splashdown! ',G.q2);return}
+  if(G.ep==2){const c=G.ca,tp=held&&!G.hp;G.hp=held;
+   if(tp){if(!G.dr){if(c>9e3)ban('Too early: wait for 8 km','#ff5468');else{G.dr=1;ban('Drogue parachutes out ✓','#5dffa8');AB.textContent='Deploy main parachutes'}}
+    else if(!G.mn){if(c>3.6e3)ban('Too early: wait for 3 km','#ff5468');else{G.mn=1;ban('Main parachutes out ✓','#5dffa8');AB.textContent='Splashdown…'}}}
+   if(!G.dr&&c<6e3){G.dr=2;G.qc=.6;ban('Drogues missed: too late to use them','#ffb067');AB.textContent='Deploy main parachutes'}
+   if(G.dr&&!G.mn&&c<1.5e3)return flE(G.why2+'The main parachutes never opened, so Orion hit the water too fast. ',0);
+   G.ca-=dt*(G.mn?450:G.dr==1?650:1000);
+   if(G.ca<=0)return flE(G.why2+(G.qc<1?'The drogues were missed. ':'Both parachute sets on time. ')+'Splashdown! ',G.q2*G.qc);return}
   const vr=(s[0]*s[2]+s[1]*s[3])/Math.hypot(s[0],s[1]),ea=G.ea.toFixed(1)+'°';
   adv((Math.hypot(s[0],s[1])-RE>1.4e5?60*SPD:G.g>1&&v>8e3?10:70)*dt,0,vr<0?1:-1);
   const a2=Math.hypot(s[0],s[1])-RE;
   if((G.tc=(G.tc||0)+dt)>.1){G.tc=0;G.tr.push([Math.atan2(s[0],s[1])*RE,a2])}
   if(G.g>12)return flE('Too steep at '+ea+': the load passed 12 g. ',0);
   if(a2>1.4e5&&vr>0)return flE('Too shallow at '+ea+': Orion skipped back out into space. ',0);
-  if(a2<1e4){G.ep=2;G.ca=1e4;G.why2='Entry angle '+ea+', peak load '+G.gp.toFixed(1)+' g. ';G.q2=G.gp<=gl?1:G.gp<=gl+2?.75:G.gp<=10?.5:.35;AB.textContent='Parachutes open automatically'}
+  if(a2<1e4){G.ep=2;G.ca=1e4;G.why2='Entry angle '+ea+', peak load '+G.gp.toFixed(1)+' g. ';G.q2=G.gp<=gl?1:G.gp<=gl+2?.75:G.gp<=10?.5:.35;G.dr=0;G.mn=0;G.qc=1;G.hp=held;AB.textContent='Deploy drogue parachutes'}
   return}
  const burn=held&&!G.co&&G.dv<G.dm,[mx,my]=mq(s[4],Z.ph),dM=Math.hypot(mx-s[0],my-s[1]);
  const w=burn?(m=='tli'&&G.pd.rm>.8*DM?6:m=='orb'?12:30):Math.min(G.co?Math.max(300,dM/1e3):G.cap,120/(v*(G.k||1e-6)));
@@ -462,10 +468,11 @@ function flRc(){
  const g=x.createLinearGradient(0,hy,0,H);g.addColorStop(0,'#2a79c9');g.addColorStop(1,'#0a2a5c');x.fillStyle=g;x.fillRect(0,hy,W,H-hy);
  x.strokeStyle='#ffffff22';x.lineWidth=1;for(let i=0;i<5;i++){x.beginPath();x.moveTo(0,hy+14+i*22+Math.sin(pt+i)*3);x.lineTo(W,hy+14+i*22+Math.cos(pt*1.3+i)*3);x.stroke()}
  const cy=lp(hy-u*.4,H*.22,cl(c/1e4));
- chutes(W/2,cy,u,c<=3e3?3:c<=8e3?2:0,c<=3e3?1.1:.6);orion(W/2,cy,u*1.6,0);
+ chutes(W/2,cy,u,G.mn?3:G.dr==1?2:0,G.mn?1.1:.6);orion(W/2,cy,u*1.6,0);
  x.textAlign='center';x.fillStyle='#eef2fb';fit('Altitude '+(Math.max(0,c)/1e3).toFixed(1)+' km',H*.12,21,700);
- x.fillStyle='#8b96b0';fit(c>8e3?'Drogues open at 8 km':c>3e3?'Mains open at 3 km':'Splashdown at about 30 km/h',H*.12+22,14,400);
- if(G.mt>0){x.globalAlpha=cl(G.mt);x.fillStyle=G.mc;x.font=F(700,22);x.fillText(G.msg,W/2,H*.2);x.globalAlpha=1}
+ x.fillStyle='#8b96b0';fit(!G.dr?'Tap to deploy the drogues at 8 km':!G.mn?'Tap to deploy the mains at 3 km':'Splashdown at about 30 km/h',H*.12+22,14,400);
+ {const bw=Math.min(W-48,420),b0=(W-bw)/2,by=H*.12+40,X=a=>b0+bw*(1-a/1e4);x.fillStyle='#ffffff18';rr(b0,by,bw,12,6);x.fillStyle=G.dr?'#5dffa828':'#5dffa870';rr(X(9e3),by,X(6e3)-X(9e3),12,6);x.fillStyle=G.mn?'#5dffa828':'#5dffa870';rr(X(3.6e3),by,X(1.5e3)-X(3.6e3),12,6);x.fillStyle='#fff';rr(X(cl(c,0,1e4))-3,by-6,6,24,3);x.font=F(400,11);x.fillStyle='#8b96b0';x.fillText('drogues',X(7.5e3),by+30);x.fillText('mains',X(2.55e3),by+30)};
+ if(G.mt>0){x.globalAlpha=cl(G.mt);x.fillStyle=G.mc;x.font=F(700,22);x.fillText(G.msg,W/2,H*.12+90);x.globalAlpha=1}
 }
 function flR(){
  if(G.ep==0)return flRa();if(G.ep==2)return flRc();
