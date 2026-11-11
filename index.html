@@ -54,11 +54,13 @@ body.play.fl:not(.co) #fd{display:block}
 body.play.dk #dp{display:flex}body.play.dk #act{display:none}
 #dp .lab{font:700 10px "Space Grotesk",system-ui,sans-serif;letter-spacing:.15em;color:var(--dim);text-align:center;margin-bottom:4px}#dp .pad{display:grid;grid-template-columns:repeat(3,52px);grid-template-rows:38px repeat(3,44px);gap:4px}#dp button.t{font-size:12px}#dp .rot button{border-color:#ffb06788}#dp .rot button.on{background:#ffb067;box-shadow:0 0 24px #ffb06788}
 #dp button{pointer-events:auto;touch-action:none;border:1px solid #62e3ff66;background:#0a1022d8;color:var(--ink);border-radius:14px;font:700 18px "Space Grotesk",system-ui,sans-serif;cursor:pointer;padding:0}#dp button.on{background:var(--cy);color:#04121a;box-shadow:0 0 24px #62e3ff88}
+#lc{display:none;position:fixed;z-index:4;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 12px);padding:8px 16px;border-radius:12px;border:1px solid var(--cy);background:var(--cd);color:var(--cy);font:700 14px "Space Grotesk",system-ui,sans-serif;cursor:pointer;pointer-events:auto}body.play.dk.lk #lc{display:block}#lc{top:calc(env(safe-area-inset-top,0px) + 12px)}#dp .fb{display:grid;grid-template-rows:repeat(2,78px);gap:8px;width:124px}#dp .fb button{font-size:15px}#lm{display:none;position:fixed;z-index:4;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 44px);padding:7px 14px;border-radius:12px;border:1px solid #ffb06788;background:var(--cd);color:#ffb067;font:700 13px "Space Grotesk",system-ui,sans-serif;cursor:pointer;pointer-events:auto;white-space:nowrap}body.play.dk #lm{display:block}
+body.play.dk #c{cursor:grab}body.play.dk.drag #c{cursor:grabbing}
 </style>
 </head>
 <body>
 <canvas id="c"></canvas>
-<div id="ui"><div id="hud"></div><div id="scr"></div><button id="act" type="button">Tap</button></div><button id="fd" type="button">Done</button><button id="mu" type="button" aria-label="Sound and vibration"></button><div id="vg"></div><button id="ps" type="button" aria-label="Pause"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></button><div id="pzo"><b>Paused</b><span>Tap anywhere to resume</span><button id="pq" type="button">Leave this step</button></div><div id="dp"><div class="cl"><div class="lab">MOVE</div><div class="pad"><button type="button" class="t" data-a="b" style="grid-area:1/1" aria-label="Move back">Back</button><button type="button" class="t" data-a="f" style="grid-area:1/3" aria-label="Move closer">Closer</button><button type="button" class="" data-a="u" style="grid-area:2/2" aria-label="Move up">▲</button><button type="button" class="" data-a="l" style="grid-area:3/1" aria-label="Move left">◀</button><button type="button" class="" data-a="r" style="grid-area:3/3" aria-label="Move right">▶</button><button type="button" class="" data-a="d" style="grid-area:4/2" aria-label="Move down">▼</button></div></div><div class="cl"><div class="lab">TURN</div><div class="pad rot"><button type="button" class="t" data-a="rl" style="grid-area:1/1" aria-label="Roll left">⟲ Roll</button><button type="button" class="t" data-a="rr" style="grid-area:1/3" aria-label="Roll right">Roll ⟳</button><button type="button" class="" data-a="pu" style="grid-area:2/2" aria-label="Nose up">⤒</button><button type="button" class="" data-a="yl" style="grid-area:3/1" aria-label="Nose left">⇤</button><button type="button" class="" data-a="yr" style="grid-area:3/3" aria-label="Nose right">⇥</button><button type="button" class="" data-a="pd" style="grid-area:4/2" aria-label="Nose down">⤓</button></div></div></div>
+<div id="ui"><div id="hud"></div><div id="scr"></div><button id="act" type="button">Tap</button></div><button id="fd" type="button">Done</button><button id="mu" type="button" aria-label="Sound and vibration"></button><div id="vg"></div><button id="ps" type="button" aria-label="Pause"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></button><div id="pzo"><b>Paused</b><span>Tap anywhere to resume</span><button id="pq" type="button">Leave this step</button></div><button id="lc" type="button">⌖ Docking view</button><div id="dp"><div class="cl"><div class="lab">ENGINE</div><div class="fb"><button type="button" data-a="f" aria-label="Forward">▲ Forward</button><button type="button" data-a="b" aria-label="Backward">▼ Backward</button></div></div><div class="cl"><div class="lab">TURN</div><div class="pad rot"><button type="button" class="t" data-a="rl" style="grid-area:1/1" aria-label="Roll left">⟲ Roll</button><button type="button" class="t" data-a="rr" style="grid-area:1/3" aria-label="Roll right">Roll ⟳</button><button type="button" class="" data-a="pu" style="grid-area:2/2" aria-label="Nose up">⤒</button><button type="button" class="" data-a="yl" style="grid-area:3/1" aria-label="Nose left">⇤</button><button type="button" class="" data-a="yr" style="grid-area:3/3" aria-label="Nose right">⇥</button><button type="button" class="" data-a="pd" style="grid-area:4/2" aria-label="Nose down">⤓</button></div></div></div>
 <script>
 const $=s=>document.querySelector(s),c=$('#c'),x=c.getContext('2d'),SC=$('#scr'),HUD=$('#hud'),AB=$('#act'),R=Math.random,PI=Math.PI;
 const cl=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)),lp=(a,b,t)=>a+(b-a)*t,F=(w,s)=>`${w} ${s}px "Space Grotesk",system-ui,sans-serif`;
@@ -87,22 +89,22 @@ const M=[
 {t:'Apr 10, 8:07 pm EDT',n:'Re-entry and splashdown',k:'fl',m:'rtn',z:'up',g:5.9,f:'Orion returns at about 40,000 km/h with its heat shield facing about 2,800 °C. Steer the angle with lift, then deploy the drogue and main parachutes yourself when the game says so. A Navy ship picks up the crew off San Diego.',o:'A 10-day flight of about 1.1 million km: humans are back at the Moon.'}]},
 {n:'Artemis III',s:'Planned: Earth-orbit docking test, 2027',w:'Docking rehearsed. Future missions are now open.',p:[
 {t:'Planned: 2027',n:'Liftoff',k:'fl',m:'asc',z:'up',f:'Randy Bresnik, Luca Parmitano, Frank Rubio and Andre Douglas ride SLS to low Earth orbit. Count down, then steer the climb out of the atmosphere.'},
-{t:'Earth orbit',n:'Docking test',k:'cor',fn:1,tv:'bo',dk:{R:22,o:[1.4,-1],v:[.02,.015],c:.25,T:170,tl:1,a:[3,-4,6,.1,-.1,.15]},f:'A Blue Origin lander test article waits in orbit. Orion has to line up and dock, the first flight of its docking system.'},
+{t:'Earth orbit',n:'Docking test',k:'cor',fn:1,tv:'bo',dk:{R:22,o:[1.4,-1],v:[.01,.008],c:.25,T:170,tl:1,a:[3,-4,6,.1,-.1,.15]},f:'A Blue Origin lander test article waits in orbit. Orion has to line up and dock, the first flight of its docking system.'},
 {t:'About two weeks later',n:'Re-entry and splashdown',k:'fl',m:'rtn',z:'up',g:3.2,v:7800,dmin:0,f:'After a second rendezvous, this time with a SpaceX Starship test vehicle, Orion returns from Earth orbit. Steer the entry with lift, then deploy the parachutes yourself.',o:'Artemis IV, the first landing, is next.'}
 ]},
 {n:'Artemis IV',s:'Planned: first south pole landing, 2028',w:'First footprints since 1972. Artemis V is unlocked.',p:[
 {t:'Planned: 2028',n:'Liftoff',k:'fl',m:'asc',z:'up',f:'Four astronauts ride SLS from Pad 39B in Orion. Count down, then steer the climb out of the atmosphere.'},
 {t:'Planned: 2028',n:'Trans-lunar injection',k:'fl',m:'tli',f:'Orion heads for the Moon to meet a commercial lander. Aim at where the Moon will be, not where it is now.'},
-{t:'Lunar orbit',n:'Dock with the lander',k:'cor',fn:1,tv:'hls',dk:{R:28,o:[-2.2,1.6],v:[.03,-.02],c:.3,T:170,tl:.85,n:.004,a:[-5,7,-10,.15,.1,-.2]},f:'A SpaceX Starship lander has been waiting in orbit around the Moon. Orion has to dock with the port on its nose so two astronauts can climb across.'},
+{t:'Lunar orbit',n:'Dock with the lander',k:'cor',fn:1,tv:'hls',dk:{R:28,o:[-2.2,1.6],v:[.015,-.01],c:.3,T:170,tl:.85,n:.002,a:[-5,7,-10,.15,.1,-.2]},f:'A SpaceX Starship lander has been waiting in orbit around the Moon. Orion has to dock with the port on its nose so two astronauts can climb across.'},
 {t:'Planned: 2028',n:'South pole descent',k:'ld',tv:'hls',f:'Two astronauts ride Starship down to the south pole, where the Sun sits low and shadows run long. The main engines brake it out of orbit, then thrusters high on its body set it down gently.',o:'The first crewed landing since Apollo 17 in 1972.'},
 {t:'On the surface',n:'Moonwalk',k:'tim',z:'sf',f:'Near permanently shadowed craters that may hold water ice, the crew works through a long checklist. Every task has a tight window.',e:[['Step onto the surface',.35,.13,.95],['Collect samples',.7,.12,1.05],['Deploy instruments',.25,.11,1.15],['Scout a shadowed crater',.62,.1,1.25],['Plant flag',.5,.09,1.35]]},
-{t:'Surface to orbit',n:'Lunar liftoff and docking',k:'la',dk:{R:30,o:[2.6,-2],v:[-.035,.025],c:.3,T:180,tl:.8,n:.005,a:[6,-8,14,-.2,.15,.25]},f:'Starship lifts off from the Moon and climbs back to orbit, where Orion docks with it so the whole crew is together again.'},
+{t:'Surface to orbit',n:'Lunar liftoff and docking',k:'la',dk:{R:30,o:[2.6,-2],v:[-.015,.01],c:.3,T:180,tl:.8,n:.0025,a:[6,-8,14,-.2,.15,.25]},f:'Starship lifts off from the Moon and climbs back to orbit, where Orion docks with it so the whole crew is together again.'},
 {t:'Return',n:'Re-entry and splashdown',k:'fl',m:'rtn',z:'up',g:5.9,f:'After a fiery entry, steer Orion down with lift, then deploy the parachutes yourself to bring the crew home to the Pacific.'}
 ]},
 {n:'Artemis V',s:'Targeted: second landing, 2028',w:'The Moon is open for regular visits. More missions will be added as NASA flies them.',p:[
 {t:'Targeted: 2028',n:'Descent',k:'ld',tv:'hls',hd:1.2,f:'Another crew descends to the surface. This approach is faster and the site is smaller, so start braking early.'},
 {t:'On the surface',n:'Moonwalks',k:'tim',z:'sf',f:'NASA aims for roughly one landing a year, so each crew builds on the last.',e:[['Drill a core sample',.25,.13,.95],['Collect samples',.7,.12,1.05],['Deploy instruments',.4,.11,1.15],['Plant flag',.6,.1,1.25]]},
-{t:'Surface to orbit',n:'Lunar liftoff and docking',k:'la',dk:{R:34,o:[-3,2.4],v:[.04,.03],c:.35,T:190,tl:.75,n:.006,a:[-8,9,-18,.2,-.2,-.3]},f:'Lunar gravity is about one sixth of Earth’s, so liftoff takes far less power, but the climb and the docking still have to be exact.'}
+{t:'Surface to orbit',n:'Lunar liftoff and docking',k:'la',dk:{R:34,o:[-3,2.4],v:[.02,.015],c:.35,T:190,tl:.75,n:.003,a:[-8,9,-18,.2,-.2,-.3]},f:'Lunar gravity is about one sixth of Earth’s, so liftoff takes far less power, but the climb and the docking still have to be exact.'}
 ]}];
 const QZ={
 '0-0':['What fuel does the SLS core stage burn?',['Liquid hydrogen and liquid oxygen','Refined kerosene and liquid oxygen','Liquid methane and oxygen'],0,'Its four RS-25 engines burn super-cold liquid hydrogen with liquid oxygen. The two side boosters burn solid fuel.'],
@@ -128,7 +130,7 @@ const QZ={
 '4-1':['What can Moon rock samples tell scientists?',['How the Moon and Earth formed','Where life lives on the Moon','When the next solar flare will hit'],0,'Moon rocks are a record of the early solar system.'],
 '4-2':['Which planet is the long-term goal after the Moon?',['Mars','Venus','Jupiter'],0,'What NASA learns on the Moon helps prepare for Mars.']
 };
-const HOW={asc:'Press Start countdown. After the tower is clear, hold to tilt the rocket toward the horizon and release to keep the angle. Put the white dot on the green diamond and keep the air-load bar out of the red until you pass 100 km.',ld:'First the braking burn: hold to fire the main engines. The dashed line shows the path if you keep braking and the ◆ shows where you will stop, so start and pause the burn to put it on the green landing site. Then the landing thrusters take over: hold to slow the fall and touch down under 1.5 m/s. Dust hides the ground at the end, and the fuel is shared between both parts.',la:'The engines light by themselves. Climb straight up, then hold to tilt toward the horizon; let go and the nose slowly rises again. Keep the white needle on the green mark. The engines stop when the lander is in orbit. Then you dock Orion with it through the docking camera: the MOVE pad lines it up, the TURN pad keeps it pointed straight, and Closer and Back control the speed.',dk:'You see through Orion’s docking camera. MOVE pad: ▲ ▼ ◀ ▶ slide Orion up, down, left and right; Closer and Back control the approach. TURN pad: point the nose up, down, left or right, and roll. Keyboard: WASD move, E closer, Q back, arrow keys turn, Z and C roll. In space nothing stops by itself: every push keeps Orion moving or turning until you push the other way. Fly inside the rings, keep the black cross centered, keep all three angles near 0° and touch the port slower than 0.15 m/s.',tim:'Tap the button when the marker crosses the green zone.',orb:'Hold to burn forward, centred on the high point of your path. The dotted line is where you will fly. Stop when it clears the Earth, then press Done.',tli:'Wait for the green zone, then hold to burn. When the dotted path loops around the Moon and comes back to Earth, the game locks the burn and coasts for you. Too much speed and Orion never returns.',rtn:'First set your entry angle: hold to steepen it, release to flatten it, and keep the needle in the green band. After the entry interface, hold to tilt lift up and stop the dive, release to dive, and follow the on-screen cue. Below 10 km, tap to deploy the drogue chutes in the green band, then tap again for the main chutes. The game shows when, but you press.'};
+const HOW={asc:'Press Start countdown. After the tower is clear, hold to tilt the rocket toward the horizon and release to keep the angle. Put the white dot on the green diamond and keep the air-load bar out of the red until you pass 100 km.',ld:'First the braking burn: hold to fire the main engines. The dashed line shows the path if you keep braking and the ◆ shows where you will stop, so start and pause the burn to put it on the green landing site. Then the landing thrusters take over: hold to slow the fall and touch down under 1.5 m/s. Dust hides the ground at the end, and the fuel is shared between both parts.',la:'The engines light by themselves. Climb straight up, then hold to tilt toward the horizon; let go and the nose slowly rises again. Keep the white needle on the green mark. The engines stop when the lander is in orbit. Then you dock Orion with it through the docking camera: turn Orion to line it up and use Forward and Backward to control the speed.',dk:'You see through Orion’s docking camera. Forward and Backward fire the engine along the way Orion is pointing, so to slide sideways you turn the nose a little and push Forward, then straighten up. The TURN pad points the nose up, down, left or right and rolls. In space nothing stops by itself: every push keeps Orion moving or turning until you push the other way. Line the black cross up with the middle of the target, arrive pointing straight and touch the port slower than 0.15 m/s. Mouse: drag the picture to turn Orion, the wheel rolls, right-drag looks around. Keyboard: W and S forward and backward, arrow keys turn, A and D roll.',tim:'Tap the button when the marker crosses the green zone.',orb:'Hold to burn forward, centred on the high point of your path. The dotted line is where you will fly. Stop when it clears the Earth, then press Done.',tli:'Wait for the green zone, then hold to burn. When the dotted path loops around the Moon and comes back to Earth, the game locks the burn and coasts for you. Too much speed and Orion never returns.',rtn:'First set your entry angle: hold to steepen it, release to flatten it, and keep the needle in the green band. After the entry interface, hold to tilt lift up and stop the dive, release to dive, and follow the on-screen cue. Below 10 km, tap to deploy the drogue chutes in the green band, then tap again for the main chutes. The game shows when, but you press.'};
 
 /* ---------- screens ---------- */
 const sr=n=>'★'.repeat(n)+'☆'.repeat(3-n),tot=m=>M[m].p.reduce((a,_,i)=>a+(sv[m+'-'+i]||0),0),pass=k=>sv[k]>0&&(!QZ[k]||sv['p'+k]),cmp=m=>M[m].p.every((_,i)=>pass(m+'-'+i));
@@ -191,7 +193,7 @@ function fin(q){
  if(G.q1!=null&&G.P.k=='cor'){q=(G.q1+q)/2;G.why=(G.why1||'')+(G.why||'')}
  SFX.end(q);FX.burst(q);
  const st=q>=.85?3:q>=.7?2:q>=.35?1:0,k=S.m+'-'+S.p;
- G.fin=1;held=false;AB.classList.remove('on');document.body.classList.remove('play','dk');for(const k in TH)TH[k]=0;
+ G.fin=1;held=false;AB.classList.remove('on');document.body.classList.remove('play','dk','lk','drag');for(const k in TH)TH[k]=0;
  if(st>(sv[k]||0)){sv[k]=st;save()}
  res(q,st);
 }
@@ -503,7 +505,7 @@ const SFX=(()=>{let a,ng,nf,lv=0,mode=0;try{mode=+localStorage.getItem('artemis-
    if(l>.1&&performance.now()-lv>240){lv=performance.now();const on=Math.round(30+l*35),off=Math.round(36-l*28),pa=[];for(let i=0;i<7;i++)pa.push(on,off);vib(pa)}},
   mode(){mode=(mode+1)%3;try{localStorage.setItem('artemis-snd',mode)}catch(e){}if(a&&ng)ng.gain.value=0;vib([120,40,120]);return mode}}})();
 const PS=$('#ps'),PZ=$('#pzo'),pz=on=>{if(!G||G.fin)return;G.pz=on;PZ.style.display=on?'flex':'none';held=false;for(const k in TH)tset(k,0)};
-PS.onclick=()=>pz(!G.pz);PZ.onclick=e=>{if(e.target.id=='pq'){PZ.style.display='none';G=null;held=false;document.body.classList.remove('play','dk');AB.classList.remove('on');SFX.eng(0);tl(S.m)}else pz(false)};
+PS.onclick=()=>pz(!G.pz);PZ.onclick=e=>{if(e.target.id=='pq'){PZ.style.display='none';G=null;held=false;document.body.classList.remove('play','dk','lk','drag');AB.classList.remove('on');SFX.eng(0);tl(S.m)}else pz(false)};
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&G&&!G.fin)pz(true)});
 const MB=$('#mu'),SV=d=>`<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`,IC=[SV('<path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/>'),SV('<rect x="8" y="4" width="8" height="16" rx="2"/><path d="M4 8v8M20 8v8"/>'),SV('<path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9l4 6M21 9l-4 6"/>')];MB.innerHTML=IC[SFX.m];MB.onclick=()=>{MB.innerHTML=IC[SFX.mode()]};
 document.addEventListener('pointerdown',e=>{if(e.target.closest('button,.row'))SFX.tick()},true);
@@ -671,33 +673,60 @@ const say=(t,d)=>{G.bt=t;G.bT=pt+(d||2.5)};
 function fuelBar(y){const w=Math.min(160,W*.4);x.fillStyle='#ffffff22';rr(W/2-w/2,y,w,6,3);x.fillStyle=G.fu>.2?'#62e3ff':'#ff5468';rr(W/2-w/2,y,w*G.fu,6,3);x.fillStyle='#8b96b0';x.font=F(400,11);x.textAlign='center';x.fillText('FUEL',W/2,y-4)}
 /* ---------- docking: Orion's docking camera, translation + rotation ---------- */
 const TH={u:0,d:0,l:0,r:0,f:0,b:0,pu:0,pd:0,yl:0,yr:0,rl:0,rr:0},DG=PI/180;
-function dkI(D){for(const k in TH)TH[k]=0;const a=D.a||[0,0,0,0,0,0];Object.assign(G,{X:D.o[0],Y:D.o[1],Z:D.R,vX:D.v[0],vY:D.v[1],vZ:-D.c,pt:a[0],yw:a[1],rl:a[2],wp:a[3],wy:a[4],wr:a[5],rcs:1,el:0});document.body.classList.add('dk');AB.classList.remove('on')}
+function dkI(D){for(const k in TH)TH[k]=0;const a=D.a||[0,0,0,0,0,0];Object.assign(G,{X:D.o[0],Y:D.o[1],Z:D.R,vX:D.v[0],vY:D.v[1],vZ:-D.c,pt:a[0],yw:a[1],rl:a[2],wp:a[3],wy:a[4],wr:a[5],rcs:1,el:0,lkY:0,lkP:0});document.body.classList.add('dk');document.body.classList.remove('lk','drag');AB.classList.remove('on')}
+const MJ={on:0,x0:0,y0:0,x:0,y:0},mjv=()=>{if(!MJ.on)return[0,0];const k=v=>{const a=Math.abs(v);return a<10?0:Math.sign(v)*Math.min(1,(a-10)/70)};return[k(MJ.x-MJ.x0),-k(MJ.y-MJ.y0)]};
 const dkLim=Z=>.12+.02*Math.max(0,Z);
 // camera frame <-> world frame (yaw: nose right +, pitch: nose up +, roll: clockwise +)
 function c2w(v,inv){let[a,b,c]=v;const Y=G.yw*DG,P=G.pt*DG,Rr=G.rl*DG;
  const ry=(t)=>{const x1=a*Math.cos(t)+c*Math.sin(t),z1=-a*Math.sin(t)+c*Math.cos(t);a=x1;c=z1},rp=(t)=>{const y1=b*Math.cos(t)+c*Math.sin(t),z1=-b*Math.sin(t)+c*Math.cos(t);b=y1;c=z1},rz=(t)=>{const x1=a*Math.cos(t)-b*Math.sin(t),y1=a*Math.sin(t)+b*Math.cos(t);a=x1;b=y1};
  if(inv){ry(Y);rp(P);rz(Rr)}else{rz(-Rr);rp(-P);ry(-Y)}return[a,b,c]}
+const SFP=(()=>{const o=[],pol=(r,t)=>[r*Math.cos(t),r*Math.sin(t)],add=(px,py,sz,k,an)=>{const r=Math.hypot(px,py);if(r<.97)o.push([r,Math.atan2(py,px),sz,k,an])};
+ for(let c=0;c<11;c++){const[a,b]=pol(Math.sqrt(R())*.9,R()*2*PI);for(let i=0;i<14;i++)add(a+(R()-.5)*.28,b+(R()-.5)*.28,.03+R()*.05,0,R()*3)}
+ for(let c=0;c<34;c++){const[a,b]=pol(Math.sqrt(R())*.95,R()*2*PI),an=R()*PI;for(let i=0;i<16;i++){const t=(R()-.5)*.35;add(a+Math.cos(an)*t+(R()-.5)*.04,b+Math.sin(an)*t+(R()-.5)*.04,.008+R()*.025,1,an)}}
+ return o})(),DST=Array.from({length:420},()=>{const u=R()*2-1,t=R()*2*PI,q=Math.sqrt(1-u*u);return[q*Math.cos(t),u,q*Math.sin(t),R()]});
+function lkR(v){let[a,b,c]=v;const Y=G.lkY*DG,P=G.lkP*DG;let x1=a*Math.cos(Y)+c*Math.sin(Y),z1=-a*Math.sin(Y)+c*Math.cos(Y);a=x1;c=z1;const y1=b*Math.cos(P)+c*Math.sin(P);z1=-b*Math.sin(P)+c*Math.cos(P);return[a,y1,z1]}
+const view=v=>lkR(c2w(v,1));
 function dkU(dt){const D=G.P.dk,A=.06,AZ=.07,AR=1.4,ok=G.rcs>0;G.el+=dt;
- const tx=ok?(TH.r-TH.l)*A:0,ty=ok?(TH.u-TH.d)*A:0,tz=ok?(TH.b-TH.f)*AZ:0,[wx,wy,wz]=c2w([tx,ty,tz],0);
- const n=['u','d','l','r','f','b'].filter(k=>TH[k]).length,nr=['pu','pd','yl','yr','rl','rr'].filter(k=>TH[k]).length;
- if(ok&&(n||nr))G.rcs=Math.max(0,G.rcs-(.02*n+.012*nr)*dt);
- if(ok){G.wp+=(TH.pu-TH.pd)*AR*dt;G.wy+=(TH.yr-TH.yl)*AR*dt;G.wr+=(TH.rr-TH.rl)*AR*dt}
+ const tx=0,ty=0,tz=ok?(TH.b-TH.f)*AZ:0,[wx,wy,wz]=c2w([tx,ty,tz],0);
+ const n=['f','b'].filter(k=>TH[k]).length,nr=['pu','pd','yl','yr','rl','rr'].filter(k=>TH[k]).length;
+ if(ok&&(n||nr))G.rcs=Math.max(0,G.rcs-(.015*n+.005*nr)*dt);
+ const[jx,jy]=mjv();if(ok){G.wp+=(TH.pu-TH.pd+jy)*AR*dt;G.wy+=(TH.yr-TH.yl+jx)*AR*dt;G.wr+=(TH.rr-TH.rl)*AR*dt;if(jx||jy)G.rcs=Math.max(0,G.rcs-.005*(Math.abs(jx)+Math.abs(jy))*dt)}
  G.pt+=G.wp*dt;G.yw+=G.wy*dt;G.rl+=G.wr*dt;
  const w=D.n||0;G.vX+=(wx+(R()-.5)*w)*dt;G.vY+=(wy+(R()-.5)*w)*dt;G.vZ+=wz*dt;
- G.X+=G.vX*dt;G.Y+=G.vY*dt;G.Z+=G.vZ*dt;G.on=n||nr?1:0;
+ if(G.rcs>0){const nv=c2w([0,0,-1],0),vp=G.vX*nv[0]+G.vY*nv[1]+G.vZ*nv[2],px=G.vX-vp*nv[0],py=G.vY-vp*nv[1],pz=G.vZ-vp*nv[2],k=1-Math.exp(-.6*dt);G.vX-=px*k;G.vY-=py*k;G.vZ-=pz*k}
+ G.X+=G.vX*dt;G.Y+=G.vY*dt;G.Z+=G.vZ*dt;G.on=n||nr||jx||jy?1:0;
  if(G.Z<=0){G.Z=0;const e=Math.hypot(G.X,G.Y),c=-G.vZ,lr=Math.hypot(G.vX,G.vY),tl=D.tl||1,cm=v=>Math.round(v*100)+' cm',am=Math.max(Math.abs(G.pt),Math.abs(G.yw),Math.abs(G.rl));
-  if(e>.35*tl){G.why='Orion touched the lander '+cm(e)+' off center, hit the docking ring and bounced away. ';return fin(0)}
+  if(e>.4*tl){G.why='Orion touched the lander '+cm(e)+' off center, hit the docking ring and bounced away. ';return fin(0)}
   if(c>.35){G.why='Orion hit the port at '+c.toFixed(2)+' m/s, far too hard for the docking system. ';return fin(0)}
-  if(am>6){G.why='Orion arrived turned '+am.toFixed(1)+'° out of line, so the two docking rings could not latch. ';return fin(0)}
-  const qe=cl(1-(e-.04*tl)/(.3*tl)),qc=c<=.15?1:cl(1-(c-.15)/.2),ql=cl(1-(lr-.03)/.1),qa=cl(1-(am-1)/4);
-  G.why='Contact '+cm(e)+' off center at '+c.toFixed(2)+' m/s, turned '+am.toFixed(1)+'° out of line'+(lr>.04?', still drifting sideways at '+lr.toFixed(2)+' m/s':'')+'. '+(qe>.8&&qc>.8&&qa>.8?'The latches closed cleanly. ':'');
+  if(am>8){G.why='Orion arrived turned '+am.toFixed(1)+'° out of line, so the two docking rings could not latch. ';return fin(0)}
+  const qe=cl(1-(e-.08*tl)/(.3*tl)),qc=c<=.15?1:cl(1-(c-.15)/.2),ql=cl(1-(lr-.05)/.15),qa=cl(1-(am-1.5)/3.5);
+  G.why='Contact '+cm(e)+' off center at '+c.toFixed(2)+' m/s, turned '+am.toFixed(1)+'° out of line'+(lr>.06?', still drifting sideways at '+lr.toFixed(2)+' m/s':'')+'. '+(qe>.8&&qc>.8&&qa>.8?'The latches closed cleanly. ':'');
   return fin(.4*qe+.25*qc+.15*ql+.2*qa)}
+ if(G.rcs<.2&&!G.fw){G.fw=1;say('Thruster fuel low',2.5)}if(D.T-G.el<30&&!G.tw2){G.tw2=1;say('30 seconds left',2.5)}
  if(G.Z>D.R+15){G.why='Orion drifted too far away from the lander. ';return fin(0)}
  if(G.el>D.T){G.why='Orion ran out of time before docking. ';return fin(0)}}
 function dkS(){const P=G.P,D=P.dk,lun=S.m>=3,cx=W/2,cy=H*.36,f=Math.min(W,H)*1.15,tg=P.tv;
- x.save();x.translate(cx,cy);x.rotate(-G.rl*DG);x.translate(-f*Math.tan(G.yw*DG),f*Math.tan(G.pt*DG));x.translate(-cx,-cy);
- if(lun){limb('m',W*.1,H*1.55,H*.95);earth(W*.86,H*.46,Math.min(W,H)*.04)}else{limb('e',W*.8,H*1.6,H*1.05);moon(W*.86,H*.46,Math.min(W,H)*.03)}x.restore();
- const pj=(px,py,pz)=>{const[a,b,c]=c2w([px-G.X,py-G.Y,pz-G.Z-.6],1);if(c>-.2)return null;const d=-c;return[cx+f*a/d,cy-f*b/d,f/d]};
+ const pd=v=>{const[a,b,c]=view(v);return c<-.05?[cx+f*a/-c,cy-f*b/-c]:null};
+ x.fillStyle='#03050b';x.fillRect(0,0,W,H);
+ for(const st of DST){const p=pd(st);if(p&&p[0]>-2&&p[0]<W+2&&p[1]>-2&&p[1]<H+2){x.fillStyle=st[3]>.85?'#cfe0ff':'#fff';x.globalAlpha=.25+.75*st[3];const z=st[3]>.9?2:1.2;x.fillRect(p[0],p[1],z,z)}}x.globalAlpha=1;
+ {const n=Math.hypot(.4,1,-.45),dn=[.4/n,-1/n,-.45/n],u0=[1,.4,0],k0=u0[0]*dn[0]+u0[1]*dn[1],u1=[u0[0]-k0*dn[0],u0[1]-k0*dn[1],-k0*dn[2]],nu=Math.hypot(...u1),uu=u1.map(v=>v/nu),ww=[dn[1]*uu[2]-dn[2]*uu[1],dn[2]*uu[0]-dn[0]*uu[2],dn[0]*uu[1]-dn[1]*uu[0]],RD=2.1;
+  let ring=[];for(let i=0;i<72;i++){const t=i/72*2*PI,w=[0,1,2].map(j=>dn[j]+RD*(Math.cos(t)*uu[j]+Math.sin(t)*ww[j]));ring.push(view(w))}
+  const out=[];for(let i=0;i<ring.length;i++){const A=ring[i],B=ring[(i+1)%ring.length],ia=A[2]<=-.05,ib=B[2]<=-.05;if(ia)out.push(A);if(ia!=ib){const t=(-.05-A[2])/(B[2]-A[2]);out.push([A[0]+(B[0]-A[0])*t,A[1]+(B[1]-A[1])*t,-.05])}}
+  if(out.length>2){const sp=out.map(([a,b,c])=>[cx+f*a/-c,cy-f*b/-c]),np=pd(dn);
+   let g;
+   const ins=v=>Math.max(-1e5,Math.min(1e5,v));
+   if(np){let best=null,bd=-1;sp.forEach(p=>{const d=Math.hypot(p[0]-np[0],p[1]-np[1]);if(d>bd&&p[0]>-W&&p[0]<2*W&&p[1]>-H&&p[1]<2*H){bd=d;best=p}});best=best||[cx,0];g=x.createLinearGradient(ins(best[0]),ins(best[1]),ins(np[0]),ins(np[1]))}else g=x.createLinearGradient(0,0,0,H);
+   if(lun){g.addColorStop(0,'#d9dbe0');g.addColorStop(.25,'#9a9ca3');g.addColorStop(1,'#3a3d47')}else{g.addColorStop(0,'#bfe3ff');g.addColorStop(.05,'#3f86d1');g.addColorStop(1,'#0b2a55')}
+   x.fillStyle=g;x.beginPath();sp.forEach(p=>x.lineTo(ins(p[0]),ins(p[1])));x.closePath();x.fill();
+   x.save();x.beginPath();sp.forEach(p=>x.lineTo(ins(p[0]),ins(p[1])));x.closePath();x.clip();
+   for(const q of SFP){const w=[0,1,2].map(j=>dn[j]+q[0]*RD*(Math.cos(q[1])*uu[j]+Math.sin(q[1])*ww[j])),v=view(w);if(v[2]>-.08)continue;const px=cx+f*v[0]/-v[2],py=cy-f*v[1]/-v[2],sz=f*q[2]*RD/-v[2],fl=.2+.8*(1-q[0]*q[0]);if(px<-sz*2||px>W+sz*2||py<-sz*2||py>H+sz*2)continue;
+    if(lun){x.fillStyle='rgba(40,42,52,.16)';x.beginPath();x.ellipse(px,py,sz*.6,sz*.6*fl,0,0,7);x.fill()}
+    else if(q[3]==0){x.fillStyle='rgba(92,120,72,.22)';x.beginPath();x.ellipse(px,py,sz,sz*fl,q[4],0,7);x.fill()}
+    else{x.fillStyle='rgba(245,248,255,.2)';x.beginPath();x.ellipse(px,py,sz*1.6,sz*.5*(fl+.3),q[4],0,7);x.fill()}}
+   x.restore();
+   x.strokeStyle=lun?'rgba(255,255,255,.25)':'rgba(120,190,255,.55)';x.lineWidth=lun?1.5:6;x.beginPath();let pen=0;for(let i=0;i<=ring.length;i++){const A=ring[i%ring.length];if(A[2]<=-.05){const p=[cx+f*A[0]/-A[2],cy-f*A[1]/-A[2]];pen?x.lineTo(ins(p[0]),ins(p[1])):x.moveTo(ins(p[0]),ins(p[1]));pen=1}else pen=0}x.stroke()}}
+ {const n=Math.hypot(.6,.25,1),p=pd([.6/n,.25/n,-1/n]);if(p)(lun?earth:moon)(p[0],p[1],Math.min(W,H)*(lun?.04:.03))}
+ const pj=(px,py,pz)=>{const[a,b,c]=view([px-G.X,py-G.Y,pz-G.Z-.6]);if(c>-.2)return null;const d=-c;return[cx+f*a/d,cy-f*b/d,f/d]};
  const disc=(pz,r,c1,c2)=>{const p=pj(0,0,pz);if(!p)return;const[a,b,k]=p,rr=r*k;if(rr<.5)return;const g=x.createRadialGradient(a-rr*.35,b-rr*.35,rr*.1,a,b,rr);g.addColorStop(0,c1);g.addColorStop(1,c2);x.fillStyle=g;x.beginPath();x.arc(a,b,rr,0,7);x.fill()};
  const poly=(pts)=>{const q=pts.map(p=>pj(...p));if(q.some(v=>!v))return 0;x.beginPath();q.forEach(p=>x.lineTo(p[0],p[1]));x.closePath();return 1};
  if(tg=='bo'){
@@ -719,51 +748,45 @@ function dkS(){const P=G.P,D=P.dk,lun=S.m>=3,cx=W/2,cy=H*.36,f=Math.min(W,H)*1.1
   const bl=.5+.5*Math.sin(pt*4);[[.95,0,'93,255,168'],[-.95,0,'255,84,104']].forEach(([lx,ly,c])=>{const p=pj(lx,ly,-.1);if(p){x.fillStyle=`rgba(${c},${.4+.6*bl})`;x.beginPath();x.arc(p[0],p[1],Math.max(2,.05*p[2]),0,7);x.fill()}});
   const p1=pj(-.17,0,.4),p2=pj(.17,0,.4),p3=pj(0,-.17,.4),p4=pj(0,.17,.4);if(p1&&p2&&p3&&p4){x.strokeStyle='#111';x.lineWidth=Math.max(1.5,.035*k);x.beginPath();x.moveTo(p1[0],p1[1]);x.lineTo(p2[0],p2[1]);x.moveTo(p3[0],p3[1]);x.lineTo(p4[0],p4[1]);x.stroke()}
   if(k<120){const s=14;x.strokeStyle='#5dffa8';x.lineWidth=2;x.beginPath();[[-1,-1],[1,-1],[1,1],[-1,1]].forEach(([u,v])=>{x.moveTo(a+u*s,b+v*(s-6));x.lineTo(a+u*s,b+v*s);x.lineTo(a+u*(s-6),b+v*s)});x.stroke()}}
- else{const[a,b]=c2w([-G.X,-G.Y,-G.Z-.6],1),an=Math.atan2(-b,a);x.fillStyle='#ffb067';x.save();x.translate(cx+Math.cos(an)*90,cy+Math.sin(an)*90);x.rotate(an);x.beginPath();x.moveTo(12,0);x.lineTo(-6,-8);x.lineTo(-6,8);x.fill();x.restore()}
- // approach corridor: rings along the docking axis
- for(let z=Math.floor(Math.min(D.R+6,G.Z-1)/3)*3;z>=3;z-=3){const r=cr(z),pts=[];for(let i=0;i<32;i++){const t=i/32*2*PI;pts.push([Math.cos(t)*r,Math.sin(t)*r,z])}
-  if(poly(pts)){const inn=e<cr(G.Z);x.strokeStyle=inn?'rgba(93,255,168,.45)':'rgba(255,176,103,.5)';x.lineWidth=1.5;x.setLineDash([6,5]);x.stroke();x.setLineDash([])}}
- // reticle (fixed to Orion)
+ else if(Math.abs(G.lkY)+Math.abs(G.lkP)<2){const[a,b]=c2w([-G.X,-G.Y,-G.Z-.6],1),an=Math.atan2(-b,a);x.fillStyle='#ffb067';x.save();x.translate(cx+Math.cos(an)*90,cy+Math.sin(an)*90);x.rotate(an);x.beginPath();x.moveTo(12,0);x.lineTo(-6,-8);x.lineTo(-6,8);x.fill();x.restore()}
+ // reticle (fixed to Orion's docking axis)
+ const bsv=lkR([0,0,-1]),bs=bsv[2]<-.05?[cx+f*bsv[0]/-bsv[2],cy-f*bsv[1]/-bsv[2]]:[-999,-999],look=Math.abs(G.lkY)+Math.abs(G.lkP)>=2;
+ x.save();x.translate(bs[0]-cx,bs[1]-cy);
  const am=Math.max(Math.abs(G.pt),Math.abs(G.yw),Math.abs(G.rl)),ok=e<.1&&am<1,rc=ok?'#5dffa8':'#62e3ff';x.strokeStyle=rc;x.lineWidth=1.5;x.beginPath();
  [[-60,-14],[14,60]].forEach(([a,b])=>{x.moveTo(cx+a,cy);x.lineTo(cx+b,cy);x.moveTo(cx,cy+a);x.lineTo(cx,cy+b)});x.stroke();x.beginPath();x.arc(cx,cy,34,0,7);x.stroke();
- x.strokeStyle='#ffffff40';x.beginPath();x.arc(cx,cy,74,0,7);x.stroke();
- // attitude readouts around the reticle
- const ac=(v,r)=>Math.abs(v)<1&&Math.abs(r)<.2?'#5dffa8':Math.abs(v)<3?'#ffb067':'#ff5468',at=(lab,v,r,px,py,al)=>{x.textAlign=al;x.fillStyle='#8b96b0';x.font=F(400,10);x.fillText(lab,px,py-16);x.fillStyle=ac(v,r);x.font=F(700,15);x.fillText((v>=0?'+':'−')+Math.abs(v).toFixed(1)+'°',px,py);x.fillStyle='#c4cbdc';x.font=F(400,11);x.fillText((r>=0?'+':'−')+Math.abs(r).toFixed(1)+'°/s',px,py+14)};
- x.fillStyle='rgba(5,8,16,.55)';rr(cx-38,cy-122,76,46,8);rr(cx+80,cy-22,66,46,8);rr(cx-38,cy+82,76,46,8);rr(cx-146,cy-22,66,46,8);
- x.shadowColor='#000d';x.shadowBlur=6;at('ROLL',G.rl,G.wr,cx,cy-94,'center');at('PITCH',G.pt,G.wp,cx+86,cy+6,'left');at('YAW',G.yw,G.wy,cx,cy+110,'center');
- x.textAlign='right';x.fillStyle='#8b96b0';x.font=F(400,10);x.fillText('OFFSET',cx-86,cy-10);x.fillStyle=e<.1?'#5dffa8':e<.3?'#ffb067':'#ff5468';x.font=F(700,15);x.fillText(Math.round(e*100)+' cm',cx-86,cy+6);x.fillStyle='#c4cbdc';x.font=F(400,11);x.fillText(Math.hypot(G.vX,G.vY).toFixed(2)+' m/s',cx-86,cy+20);
- // range / rate / offset map
- const c=-G.vZ,lim=dkLim(G.Z),cc=c>lim?'#ff5468':c>lim*.8?'#ffb067':c<0?'#ffb067':'#5dffa8',sg=v=>(v>=0?'+':'−')+Math.abs(v).toFixed(2),L=W*.05,T=H*.11;
- x.fillStyle='rgba(5,8,16,.62)';rr(L-10,T-16,128,96,10);x.textAlign='left';x.fillStyle='#8b96b0';x.font=F(400,10);
- x.fillText('RANGE',L,T);x.fillText('CLOSING RATE',L,T+40);x.fillStyle='#eef2fb';x.font=F(700,20);x.fillText(G.Z.toFixed(1)+' m',L,T+20);x.fillStyle=cc;x.fillText(c.toFixed(2)+' m/s',L,T+60);
- x.fillStyle='#8b96b0';x.font=F(400,10);x.fillText('limit '+lim.toFixed(2)+' m/s',L,T+74);
- const bx=W*.95-76,by=T-16;x.fillStyle='rgba(5,8,16,.62)';rr(bx-40,by,116,118,10);x.strokeStyle='#ffffff30';x.lineWidth=1;x.beginPath();x.moveTo(bx+38,by+6);x.lineTo(bx+38,by+70);x.moveTo(bx+6,by+38);x.lineTo(bx+70,by+38);x.stroke();
- x.beginPath();x.arc(bx+38,by+38,6,0,7);x.strokeStyle='#5dffa888';x.stroke();
- const sm=v=>Math.sign(v)*Math.min(32,Math.sqrt(Math.abs(v))*16),dx=bx+38+sm(G.X),dy=by+38-sm(G.Y);
- x.strokeStyle='#ffb067';x.lineWidth=2;x.beginPath();x.moveTo(dx,dy);x.lineTo(dx+cl(G.vX*160,-30,30),dy-cl(G.vY*160,-30,30));x.stroke();x.fillStyle=e<.1?'#5dffa8':'#fff';x.beginPath();x.arc(dx,dy,4,0,7);x.fill();
- x.textAlign='right';x.fillStyle='#c4cbdc';x.font=F(400,11);x.fillText('↔ '+sg(G.X)+' m '+sg(G.vX),W*.95-4,by+92);x.fillText('↕ '+sg(G.Y)+' m '+sg(G.vY),W*.95-4,by+108);
- // advice
- let m;const hv=Math.hypot(G.vX,G.vY);
- if(G.rcs<=0)m='Thruster fuel is gone: Orion just drifts';else if(c>lim)m='Too fast: press Back to slow down';else if(c<-.02)m='Moving away: press Closer';
- else if(am>1.5||Math.abs(G.wp)>.3||Math.abs(G.wy)>.3||Math.abs(G.wr)>.3){const q=[[Math.abs(G.rl)+Math.abs(G.wr)*3,G.rl+G.wr*3>0?'roll ⟲':'roll ⟳'],[Math.abs(G.pt)+Math.abs(G.wp)*3,G.pt+G.wp*3>0?'nose down':'nose up'],[Math.abs(G.yw)+Math.abs(G.wy)*3,G.yw+G.wy*3>0?'nose left':'nose right']].sort((a,b)=>b[0]-a[0])[0];m='Line up: turn '+q[1]}
- else if(e>.12&&G.Z<lim*30){const ax2=Math.abs(G.X)>Math.abs(G.Y);m='Center the cross: move '+(ax2?(G.X>0?'left':'right'):(G.Y>0?'down':'up'))}else if(hv>.05)m='Drifting sideways: push the other way to stop';else if(c<.04&&G.Z>1.5)m='Press Closer to move in';else m='Steady. Keep the cross centered';
- const ay=H-290;x.fillStyle='rgba(5,8,16,.62)';rr(W/2-Math.min(W*.48,230),ay-22,Math.min(W*.96,460),62,12);
- x.textAlign='center';x.fillStyle='#eef2fb';fit(m,ay,16,700);x.fillStyle='#8b96b0';fit('Touch under 0.15 m/s, centered, turned less than 1° · '+Math.max(0,Math.ceil(D.T-G.el))+' s left',ay+18,11,400);x.shadowBlur=0;
- {const w=Math.min(140,W*.35),yy=ay+26;x.fillStyle='#ffffff22';rr(W/2-w/2,yy,w,4,2);x.fillStyle=G.rcs>.2?'#62e3ff':'#ff5468';rr(W/2-w/2,yy,w*G.rcs,4,2)}}
-/* ---------- Starship descent, braking burn: trajectory view ---------- */
-function ldS0(){const P=G.P,gy=H*.8,x0=W*.12,sx=W*.62/G.X0,vs=H*.36/3e3,site=x0+G.X0*sx,hn=i=>Math.abs(Math.sin(i*12.9898)*43758.5453)%1;
- lunar(gy);
- for(let i=0;i<26;i++){const cxp=hn(i)*W*1.1-W*.05,cyp=gy+(H-gy)*(.12+hn(i+50)*.75),z=(5+hn(i+9)*18)*(.5+(cyp-gy)/(H-gy));if(Math.abs(cxp-site)<40&&cyp<gy+(H-gy)*.4)continue;x.fillStyle='rgba(20,22,32,.35)';x.beginPath();x.ellipse(cxp,cyp,z,z*.3,0,0,7);x.fill();x.strokeStyle='rgba(255,255,255,.22)';x.lineWidth=1;x.beginPath();x.ellipse(cxp-1,cyp-1,z,z*.3,0,PI*.9,PI*1.8);x.stroke()}
- const sy=gy+(H-gy)*.22;x.fillStyle='rgba(225,228,236,.3)';x.beginPath();x.ellipse(site,sy,Math.max(14,40*sx*2),6,0,0,7);x.fill();x.strokeStyle='rgba(93,255,168,'+(.6+.4*Math.sin(pt*5))+')';x.lineWidth=2;x.stroke();
- x.strokeStyle='rgba(93,255,168,.5)';x.setLineDash([2,4]);x.beginPath();x.moveTo(site,sy);x.lineTo(site,gy-H*.12);x.stroke();x.setLineDash([]);x.fillStyle='#5dffa8';x.font=F(700,11);x.textAlign='center';x.fillText('LANDING SITE',site,gy-H*.12-6);
- const Y=(h)=>gy-H*.05-h*vs,Xs=d=>x0+d*sx;
- if(G.tp&&G.tp.length){x.strokeStyle='rgba(255,255,255,.25)';x.lineWidth=1.5;x.beginPath();G.tp.forEach(([d,h])=>x.lineTo(Xs(d),Y(h)));x.lineTo(Xs(G.trav),Y(G.h));x.stroke()}
- const sp=G.trav+G.dst,dd=sp-G.X0,dc=Math.abs(dd)<=40?'#5dffa8':Math.abs(dd)<=150?'#ffb067':'#ff5468';
- if(G.vx>2){let v=G.vx,f=G.fu,d=G.trav;const st=.4;x.strokeStyle=dc;x.globalAlpha=.8;x.setLineDash([5,5]);x.lineWidth=1.5;x.beginPath();x.moveTo(Xs(d),Y(G.h));for(let i=0;i<400&&v>2&&f>0;i++){d+=v*st;v-=9/(1-.45*(1-f))*st;f-=.034*st;x.lineTo(Xs(d),Y(120+2880*Math.max(0,v)/G.vx0))}x.stroke();x.setLineDash([]);x.globalAlpha=1;
-  const mx=Xs(sp),my=Y(120);x.fillStyle=dc;x.beginPath();x.moveTo(mx,my-8);x.lineTo(mx+6,my);x.lineTo(mx,my+8);x.lineTo(mx-6,my);x.fill()}
- const s=H*.0019,b=held&&G.fu>0&&!G.fin&&!(G.rd>0),shx=Xs(G.trav),shy=Y(G.h);
- x.fillStyle='rgba(0,0,0,.35)';x.beginPath();x.ellipse(shx,gy+(H-gy)*.2,14+G.h*.006,4,0,0,7);x.fill();
- x.save();x.translate(shx,shy);x.rotate(-1.35*G.vx/G.vx0);x.translate(0,25*s);hlsD(s,{main:b?1:0});x.restore();
+ x.strokeStyle='#ffffff40';x.beginPath();x.arc(cx,cy,74,0,7);x.stroke();x.restore();
+ const py1=H*.1+62;if(look){x.fillStyle='rgba(5,8,16,.7)';rr(W/2-150,py1,300,40,10);x.textAlign='center';x.fillStyle='#62e3ff';x.font=F(700,13);x.fillText('Looking around · Orion keeps flying',W/2,py1+16);x.fillStyle='#c4cbdc';x.font=F(400,11);x.fillText('Double-click or tap “Docking view” to look ahead again',W/2,py1+32)}
+
+ const c=-G.vZ,lim=dkLim(G.Z),cc=c>lim?'#ff5468':c<0?'#ffb067':'#eef2fb',py0=H*.1;
+ x.fillStyle='rgba(5,8,16,.62)';rr(W/2-130,py0-10,260,62,12);x.textAlign='center';x.fillStyle='#8b96b0';x.font=F(400,10);x.fillText(tg=='bo'?'DISTANCE TO LANDER':'DISTANCE TO HLS',W/2-65,py0+6);x.fillText('SPEED',W/2+65,py0+6);
+ x.font=F(700,22);x.fillStyle='#eef2fb';x.fillText(G.Z.toFixed(1)+' m',W/2-65,py0+36);x.fillStyle=cc;x.fillText(c.toFixed(2)+' m/s',W/2+65,py0+36);
+ if(MJ.on){const[jx,jy]=mjv();x.strokeStyle='rgba(255,176,103,.6)';x.lineWidth=2;x.beginPath();x.arc(MJ.x0,MJ.y0,80,0,7);x.stroke();x.beginPath();x.arc(MJ.x0,MJ.y0,10,0,7);x.stroke();const kx=MJ.x0+cl(MJ.x-MJ.x0,-80,80),ky=MJ.y0+cl(MJ.y-MJ.y0,-80,80);x.beginPath();x.moveTo(MJ.x0,MJ.y0);x.lineTo(kx,ky);x.stroke();x.fillStyle='#ffb067';x.beginPath();x.arc(kx,ky,9,0,7);x.fill();x.textAlign='center';x.font=F(700,12);x.fillStyle='#ffb067';x.fillText([jy>0?'nose up':jy<0?'nose down':'',jx>0?'nose right':jx<0?'nose left':''].filter(Boolean).join(' + '),MJ.x0,MJ.y0-92)}}
+/* ---------- Starship descent, braking burn: camera follows the ship over a moving Moon ---------- */
+const hsh=i=>{const v=Math.sin(i*12.9898+7.13)*43758.5453;return v-Math.floor(v)};
+function ldS0(){const gy=H*.6,shX=W*.3,sc=H*.42/(G.h+150),T=G.trav,P0=.25,P1=2.2,pr=r=>P0+(P1-P0)*r,yr=r=>gy+(H-gy)*r,rs=.35,ps=pr(rs),ys=yr(rs),sxw=wx=>shX+(wx-T)*sc*ps,syw=h=>ys-h*sc*ps;
+ // far ridges (slow parallax)
+ [[.035,'#2c2f39',H*.07,0],[.08,'#434651',H*.045,40]].forEach(([k,c,a,o])=>{x.fillStyle=c;x.beginPath();x.moveTo(0,gy+2);for(let s=0;s<=W+8;s+=8){const u=(s+T*k)/W*6+o;x.lineTo(s,gy-a*(.45+.3*Math.sin(u)+.18*Math.sin(u*2.7+1)+.07*Math.sin(u*7.3)))}x.lineTo(W,gy+2);x.fill()});
+ // ground
+ let g=x.createLinearGradient(0,gy,0,H);g.addColorStop(0,'#9a9ca5');g.addColorStop(.3,'#767983');g.addColorStop(1,'#3a3d48');x.fillStyle=g;x.fillRect(0,gy,W,H-gy);
+ // craters at three sizes, each fixed to the ground, scrolling with depth-dependent parallax
+ [[420,0],[130,1],[40,2]].forEach(([sz,li])=>{const sp=sz*2.4,w0=T+(-shX-150)/(sc*P0),w1=T+(W-shX+150)/(sc*P0);let n=0;
+  for(let ci=Math.floor(w0/sp);ci<=Math.ceil(w1/sp)&&n<400;ci++,n++){const id=ci*3+li*1e5,r=hsh(id+1),wx=(ci+hsh(id))*sp,p=pr(r),px=shX+(wx-T)*sc*p,rad=sz*(.5+hsh(id+2))*.5*sc*p,a=cl((rad-1.5)/4)*cl((260-rad)/120);
+   if(a<=0||px<-rad*2||px>W+rad*2)continue;const py=yr(r),fl=.18+.3*r;x.globalAlpha=a;x.fillStyle='rgba(30,32,42,.35)';x.beginPath();x.ellipse(px,py,rad,rad*fl,0,0,7);x.fill();x.strokeStyle='rgba(255,255,255,.3)';x.lineWidth=1;x.beginPath();x.ellipse(px-rad*.06,py-rad*fl*.15,rad,rad*fl,0,PI*.95,PI*1.9);x.stroke()}});
+ x.globalAlpha=1;g=x.createLinearGradient(0,gy,0,gy+H*.06);g.addColorStop(0,'rgba(4,6,13,.45)');g.addColorStop(1,'rgba(4,6,13,0)');x.fillStyle=g;x.fillRect(0,gy,W,H*.06);
+ // landing site
+ const st=sxw(G.X0),srad=Math.max(10,40*sc*ps);
+ if(st>-srad&&st<W+srad){x.fillStyle='rgba(225,228,236,.35)';x.beginPath();x.ellipse(st,ys,srad,srad*.28,0,0,7);x.fill();x.strokeStyle='rgba(93,255,168,'+(.6+.4*Math.sin(pt*5))+')';x.lineWidth=2;x.stroke();
+  x.strokeStyle='rgba(93,255,168,.5)';x.setLineDash([2,4]);x.beginPath();x.moveTo(st,ys);x.lineTo(st,ys-H*.1);x.stroke();x.setLineDash([]);x.fillStyle='#5dffa8';x.font=F(700,11);x.textAlign='center';x.fillText('LANDING SITE',st,ys-H*.1-6)}
+ else{const rt=st>W;x.fillStyle='#5dffa8';x.font=F(700,12);x.textAlign=rt?'right':'left';const ax=rt?W-14:14,d=Math.abs(G.X0-T);x.fillText((rt?'':'← ')+'LANDING SITE '+(d>=1e3?(d/1e3).toFixed(1)+' km':Math.round(d)+' m')+(rt?' →':''),ax,ys-8)}
+ // flown path and predicted path
+ if(G.tp&&G.tp.length){x.strokeStyle='rgba(255,255,255,.25)';x.lineWidth=1.5;x.beginPath();G.tp.forEach(([d,h])=>x.lineTo(sxw(d),syw(h)));x.lineTo(shX,syw(G.h));x.stroke()}
+ const sp=T+G.dst,dd=sp-G.X0,dc=Math.abs(dd)<=40?'#5dffa8':Math.abs(dd)<=150?'#ffb067':'#ff5468';
+ if(G.vx>2){let v=G.vx,f=G.fu,d=T;const stp=.4;x.strokeStyle=dc;x.globalAlpha=.85;x.setLineDash([5,5]);x.lineWidth=1.5;x.beginPath();x.moveTo(shX,syw(G.h));for(let i=0;i<400&&v>2&&f>0;i++){d+=v*stp;v-=9/(1-.45*(1-f))*stp;f-=.034*stp;x.lineTo(sxw(d),syw(120+2880*Math.max(0,v)/G.vx0))}x.stroke();x.setLineDash([]);x.globalAlpha=1;
+  const mx=sxw(sp),my=syw(120);if(mx<W+10){x.fillStyle=dc;x.beginPath();x.moveTo(mx,my-8);x.lineTo(mx+6,my);x.lineTo(mx,my+8);x.lineTo(mx-6,my);x.fill()}}
+ // ship (camera follows it)
+ const s=H*.0019,b=held&&G.fu>0&&!G.fin&&!(G.rd>0),shy=syw(G.h);
+ x.fillStyle='rgba(0,0,0,.3)';x.beginPath();x.ellipse(shX,ys,10+12*cl(1-G.h/3e3),3,0,0,7);x.fill();
+ x.save();x.translate(shX,shy);x.rotate(-1.35*G.vx/G.vx0);x.translate(0,25*s);hlsD(s,{main:b?1:0});x.restore();
  x.textAlign='center';x.shadowColor='#000d';x.shadowBlur=9;x.fillStyle='#eef2fb';x.font=F(700,34);x.fillText(Math.round(G.vx)+' m/s',W/2,H*.15);
  x.fillStyle='#c4cbdc';fit('Altitude '+(G.h/1e3).toFixed(1)+' km · '+(G.X>=1e3?(G.X/1e3).toFixed(1)+' km':Math.round(Math.max(0,G.X))+' m')+' to the site',H*.15+20,13,400);
  x.font=F(700,15);x.fillStyle=dc;x.fillText(G.vx>2?'◆ Stop point: '+(Math.abs(dd)<=40?'on the site':Math.round(Math.abs(dd))+' m '+(dd<0?'short':'past')):'',W/2,H*.15+40);x.shadowBlur=0;fuelBar(H*.15+62)}
@@ -832,7 +855,7 @@ function draw(){
  if(!P){hor();body('m',W*.87,H*.115+Math.sin(pt*.3)*6,Math.min(W,H)*.07);return}
  if(P.k=='tim'){z=='up'?upS():z=='ch'?chS():z=='sf'?sfS():mnS();trk()}else if(P.k=='fl')P.m=='rtn'?flR():P.m=='asc'?flA():flM();else if(P.k=='ld')ldS();else if(P.k=='la')laS();else dkS();banner();
  x.textAlign='center';x.fillStyle='#eef2fb';x.font=F(700,22);
- if(G.rd>0&&!G.fin)x.fillText('Get ready',W/2,H*.2);else if(P.k=='ld'&&!G.on&&!G.fin){x.font=F(400,15);x.fillText('Hold the button to fire the engine',W/2,H*.2)}
+ if(G.rd>0&&!G.fin)x.fillText('Get ready',W/2,H*.2);else if(P.k=='ld'&&!G.on&&!G.fin){x.font=F(400,15);x.fillText('Hold the button to fire the engine',W/2,H*.42)}
 }
 
 /* ---------- input and loop ---------- */
@@ -840,7 +863,15 @@ const dn=e=>{if(e)e.preventDefault();if(!G||G.fin)return;held=true;AB.classList.
 AB.addEventListener('pointerdown',dn);['pointerup','pointercancel','pointerleave'].forEach(n=>AB.addEventListener(n,up));AB.oncontextmenu=e=>e.preventDefault();
 addEventListener('keydown',e=>{if(e.code=='Space'&&document.body.classList.contains('play')){e.preventDefault();if(!e.repeat)dn()}});
 addEventListener('keyup',e=>{if(e.code=='Space')up()});
-const DPB=[...document.querySelectorAll('#dp button')],KM={KeyW:'u',KeyS:'d',KeyA:'l',KeyD:'r',KeyE:'f',KeyQ:'b',ArrowUp:'pu',ArrowDown:'pd',ArrowLeft:'yl',ArrowRight:'yr',KeyZ:'rl',KeyC:'rr'},tset=(a,v)=>{TH[a]=v;DPB.forEach(b=>{if(b.dataset.a==a)b.classList.toggle('on',!!v)})};
+const lkSet=(y,p)=>{if(!G||G.P.k!='cor')return;G.lkY=cl(y,-160,160);G.lkP=cl(p,-85,85);document.body.classList.toggle('lk',Math.abs(G.lkY)+Math.abs(G.lkP)>=2)};let LD=null,LKM=0;
+c.addEventListener('contextmenu',e=>{if(document.body.classList.contains('dk'))e.preventDefault()});
+c.addEventListener('pointerdown',e=>{if(!document.body.classList.contains('dk')||!G||G.fin)return;e.preventDefault();c.setPointerCapture(e.pointerId);document.body.classList.add('drag');
+ if(LKM||e.button==2||e.shiftKey)LD={x:e.clientX,y:e.clientY,a:G.lkY,b:G.lkP,id:e.pointerId};else Object.assign(MJ,{on:1,x0:e.clientX,y0:e.clientY,x:e.clientX,y:e.clientY,id:e.pointerId})});
+c.addEventListener('pointermove',e=>{if(LD&&e.pointerId==LD.id){const k=110/Math.min(innerWidth,innerHeight);lkSet(LD.a-(e.clientX-LD.x)*k,LD.b+(e.clientY-LD.y)*k)}if(MJ.on&&e.pointerId==MJ.id){MJ.x=e.clientX;MJ.y=e.clientY}});
+['pointerup','pointercancel'].forEach(n=>c.addEventListener(n,e=>{if(LD&&e.pointerId==LD.id)LD=null;if(MJ.on&&e.pointerId==MJ.id)MJ.on=0;if(!LD&&!MJ.on)document.body.classList.remove('drag')}));
+c.addEventListener('wheel',e=>{if(!document.body.classList.contains('dk')||!G||G.fin||G.rcs<=0)return;e.preventDefault();const d=Math.sign(e.deltaY);G.wr+=d*.12;G.rcs=Math.max(0,G.rcs-.002)},{passive:false});
+c.addEventListener('dblclick',()=>lkSet(0,0));$('#lc').onclick=()=>lkSet(0,0);
+const DPB=[...document.querySelectorAll('#dp button')],KM={KeyW:'f',KeyS:'b',KeyE:'f',KeyQ:'b',KeyA:'rl',KeyD:'rr',ArrowUp:'pu',ArrowDown:'pd',ArrowLeft:'yl',ArrowRight:'yr',KeyZ:'rl',KeyC:'rr'},tset=(a,v)=>{TH[a]=v;DPB.forEach(b=>{if(b.dataset.a==a)b.classList.toggle('on',!!v)})};
 DPB.forEach(b=>{const a=b.dataset.a;b.addEventListener('pointerdown',e=>{e.preventDefault();if(G&&!G.fin)tset(a,1)});['pointerup','pointercancel','pointerleave'].forEach(n=>b.addEventListener(n,()=>tset(a,0)));b.oncontextmenu=e=>e.preventDefault()});
 addEventListener('keydown',e=>{const a=KM[e.code];if(a&&document.body.classList.contains('dk')){e.preventDefault();if(G&&!G.fin)tset(a,1)}});addEventListener('keyup',e=>{const a=KM[e.code];if(a)tset(a,0)});
 function tick(ts){const dt=Math.min(.05,(ts-last)/1e3||0);last=ts;pt+=dt;if(G&&!G.pz)upd(dt);const e=engLevel();SFX.eng(e[0],e[1]);draw();BL.draw();FX.draw(dt);requestAnimationFrame(tick)}
