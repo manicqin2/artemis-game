@@ -242,14 +242,14 @@ const FM=3;
 function menu(f){TLM=1;const ix=M.map((_,i)=>i).filter(i=>(i>=FM)==!!f);
  G=null;document.body.classList.remove('play');
  setH(f?'Future missions':'Artemis program','★ '+ix.reduce((a,i)=>a+tot(i),0)+' / '+ix.reduce((a,i)=>a+M[i].p.length*3,0)+' · ✦ '+ix.reduce((a,i)=>a+ins(i),0));
- show(`${f?'<h2>Future missions</h2><p class="dim">Flights NASA has planned but not yet flown. Details may change.</p>':'<h1>ARTEMIS</h1><p class="sub">Fly every step of the return to the Moon.</p>'}`+ix.map(i=>{const m=M[i],lk=i>0&&!cmp(i-1);return `<button class="cd ms" data-m="${i}"${lk?' disabled':''}><span class="nm">${m.n}</span><span class="ds">${lk?'Finish '+M[i-1].n+' to unlock':m.s}</span><span class="pg">${m.p.map((_,j)=>`<i${sv[i+'-'+j]?' class="on"':''}></i>`).join('')}</span></button>`}).join('')+`${f?'<button class="btn g" id="bk">Back to the main missions</button>':'<button class="btn fm" id="fu">Experience future missions <span>→</span></button>'}`);
+ show(`${f?'<h2>Future missions</h2><p class="dim">Flights NASA has planned but not yet flown. Details may change.</p>':'<h1>ARTEMIS</h1><p class="sub">Fly every step of the return to the Moon.</p>'}`+ix.slice().reverse().map(i=>{const m=M[i],lk=i>0&&!cmp(i-1);return `<button class="cd ms" data-m="${i}"${lk?' disabled':''}><span class="nm">${m.n}</span><span class="ds">${lk?'Finish '+M[i-1].n+' to unlock':m.s}</span><span class="pg">${m.p.map((_,j)=>`<i${sv[i+'-'+j]?' class="on"':''}></i>`).join('')}</span></button>`}).join('')+`${f?'<button class="btn g" id="bk">Back to the main missions</button>':'<button class="btn fm" id="fu">Experience future missions <span>→</span></button>'}`);
  SC.querySelectorAll('button[data-m]').forEach(b=>b.onclick=()=>tl(+b.dataset.m));if(f)$('#bk').onclick=()=>menu();else $('#fu').onclick=()=>menu(1);
 }
 function tl(m){
  TLM=0;S.m=m;G=null;document.body.classList.remove('play');
  const A=M[m],n=A.p.length,full=cmp(m),rk=tot(m)>=n*2.7?'Flight Director':tot(m)>=n*2?'Flight Controller':'Mission Specialist';
  setH(A.n,'★ '+tot(m)+' / '+n*3);
- show(`<div class="cd"><h2>${A.n}</h2><p class="dim">${A.s}</p><div class="tl">`+A.p.map((p,i)=>{const lk=i>0&&!pass(m+'-'+(i-1));return `<button class="row" data-p="${i}"${lk?' disabled':''}><span><small>${p.t}</small><br><b>${p.n}</b><span class="ds2">${(PH[m+'-'+i]||[])[0]||''}</span></span><em>${stOf(m,i)=='sk'&&!(sv[m+'-'+i]>0)?'⏭ skipped':sr(sv[m+'-'+i]||0)}${sv['q'+m+'-'+i]?' ✦':''}</em></button>`}).join('')+`</div>${full?`<p class="win">${A.w} Rank: ${rk}${ins(m)==n?' · Science Officer':''}.</p>`:''}<button class="btn g" id="bk">All missions</button></div>`);
+ show(`<div class="cd"><h2>${A.n}</h2><p class="dim">${A.s}</p><div class="tl">`+A.p.map((p,i)=>{const lk=i>0&&!pass(m+'-'+(i-1));return `<button class="row" data-p="${i}"${lk?' disabled':''}><span><small>${p.t}</small><br><b>${p.n}</b><span class="ds2">${(PH[m+'-'+i]||[])[0]||''}</span></span><em>${stOf(m,i)=='sk'&&!(sv[m+'-'+i]>0)?'⏭ skipped':sr(sv[m+'-'+i]||0)}${sv['q'+m+'-'+i]?' ✦':''}</em></button>`}).reverse().join('')+`</div>${full?`<p class="win">${A.w} Rank: ${rk}${ins(m)==n?' · Science Officer':''}.</p>`:''}<button class="btn g" id="bk">All missions</button></div>`);
  SC.querySelectorAll('.row').forEach(b=>b.onclick=()=>brief(+b.dataset.p));$('#bk').onclick=()=>menu(m>=FM);
 }
 function brief(i){
