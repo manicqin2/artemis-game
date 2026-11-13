@@ -110,6 +110,8 @@ body.play #skb{display:block}
  #act{font-size:22px;height:96px}#tut{font-size:16px;width:min(92vw,540px)}#pzo span{font-size:18px}#pq,#pk{font-size:17px}#fd{font-size:16px}#skb{font-size:15px}
  #dp .lab{font-size:12px}#dp button{font-size:20px}#dp .fb button{font-size:17px}#dp button.t{font-size:14px}.win{font-size:16px}.qz p{font-size:18px}.big{font-size:52px}
 }
+
+.chip{transition:opacity .4s,padding .4s}.chip.mini{padding:4px 11px;opacity:.72}.chip.mini small{display:none}.chip.mini b{font-size:13px!important;font-weight:600}
 </style>
 </head>
 <body>
@@ -224,7 +226,7 @@ const KEYS={dk:'Keyboard: W / S move · arrow keys turn · A / D roll. Mouse: dr
 const kindOf=P=>P.fn?'dk':P.k=='fl'?P.m:P.k;
 let TLM=1;
 function stOf(m,j){const k=m+'-'+j;return sv[k]>0&&pass(k)?'ok':sv['s'+k]?'sk':''}
-function hudP(){const A=M[S.m],P=A.p[S.p],ph=PH[S.m+'-'+S.p]||[];HUD.innerHTML=`<div class="chip"><small>${A.n} · Step ${S.p+1} of ${A.p.length}</small><b>${P.n}</b></div>`}
+function hudP(){const A=M[S.m],P=A.p[S.p],ph=PH[S.m+'-'+S.p]||[];HUD.innerHTML=`<div class="chip"><small>${A.n} · Step ${S.p+1} of ${A.p.length}</small><b>${P.n}</b></div>`;clearTimeout(hudP.t);if(document.body.classList.contains('play'))hudP.t=setTimeout(()=>{const c=HUD.querySelector('.chip');if(c)c.classList.add('mini')},3500)}
 function tlR(){const el=$('#tlp');if(!el)return;const play=document.body.classList.contains('play');
  if(play){el.className='rail';el.innerHTML=M.map((A,i)=>`<b class="${i==S.m?'cur':cmp(i)?'ok':''}">${A.n.replace('Artemis ','')}</b>`+(i==S.m?A.p.map((_,j)=>`<i class="${j==S.p?'cur':stOf(i,j)}"></i>`).join(''):'')).join('');return}
  el.className='full';const inB=!TLM&&G==null;
@@ -484,7 +486,7 @@ function flU(dt){
    if(a2<=1.205e5){const vt=(s[1]*s[2]-s[0]*s[3])/r1;G.ai=Math.atan2(-vr,vt)/RAD;G.d0=Math.atan2(s[0],s[1])*RE;G.ap=0;G.tr=[];G.hm=a2;G.gp=0;AB.textContent='Hold to lift';ban('Entry interface: steer with lift!','#62e3ff')}
    return}
   if(!G.ph2){
-   adv((r0-RE>1.4e5?90:32)*dt,0,held?1:-1);
+   {const vr0=(s[0]*s[2]+s[1]*s[3])/r0;adv((r0-RE>1.4e5?90:20)*dt,0,held?cl(1-vr0/40,-1,1):-1)}
    const a2=Math.hypot(s[0],s[1])-RE;if(a2>G.hm)G.hm=a2;
    if((G.tc=(G.tc||0)+dt)>.1){G.tc=0;G.tr.push([Math.atan2(s[0],s[1])*RE-G.d0,a2])}
    if(G.g>12)return flE('Too steep: the crew would feel over 12 g. ',0);
