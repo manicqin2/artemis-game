@@ -228,9 +228,8 @@ function hudP(){const A=M[S.m],P=A.p[S.p],ph=PH[S.m+'-'+S.p]||[];HUD.innerHTML=`
 function tlR(){const el=$('#tlp');if(!el)return;const play=document.body.classList.contains('play');
  if(play){el.className='rail';el.innerHTML=M.map((A,i)=>`<b class="${i==S.m?'cur':cmp(i)?'ok':''}">${A.n.replace('Artemis ','')}</b>`+(i==S.m?A.p.map((_,j)=>`<i class="${j==S.p?'cur':stOf(i,j)}"></i>`).join(''):'')).join('');return}
  el.className='full';const inB=!TLM&&G==null;
- el.innerHTML='<div class="th">Your journey</div>'+M.map((A,i)=>{const lk=i>0&&!cmp(i-1),open=!TLM&&i==S.m,done=A.p.filter((_,j)=>stOf(i,j)).length;
-  return (i==FM?'<div class="tfu">Future missions</div>':'')+`<button class="tmn ${cmp(i)?'ok':''} ${open?'cur':''}" data-tm="${i}"${lk?' disabled':''}><i></i>${A.n}<small>${done}/${A.p.length}</small></button>`+
-   (open?'<div class="tsl">'+A.p.map((P,j)=>{const st=stOf(i,j),cur=SC.querySelector('#go')&&j==S.p,lj=j>0&&!pass(i+'-'+(j-1));return `<button class="tst ${cur?'cur':''} ${st}" data-ts="${j}"${lj?' disabled':''}><em>${cur?'▶':st=='ok'?'✓':st=='sk'?'⏭':lj?'·':'○'}</em>${P.n}</button>`}).join('')+'</div>':'')}).join('');
+ el.innerHTML='<div class="th">Your journey</div>'+(M.length>FM?'<div class="tfu">Future missions</div>':'')+M.map((A,i)=>{const lk=i>0&&!cmp(i-1),open=!TLM&&i==S.m,done=A.p.filter((_,j)=>stOf(i,j)).length;
+  return (i==FM-1&&M.length>FM?'<div class="tfu">Artemis program</div>':'')+(open?'<div class="tsl">'+A.p.map((P,j)=>{const st=stOf(i,j),cur=SC.querySelector('#go')&&j==S.p,lj=j>0&&!pass(i+'-'+(j-1));return `<button class="tst ${cur?'cur':''} ${st}" data-ts="${j}"${lj?' disabled':''}><em>${cur?'▶':st=='ok'?'✓':st=='sk'?'⏭':lj?'·':'○'}</em>${P.n}</button>`}).reverse().join('')+'</div>':'')+`<button class="tmn ${cmp(i)?'ok':''} ${open?'cur':''}" data-tm="${i}"${lk?' disabled':''}><i></i>${A.n}<small>${done}/${A.p.length}</small></button>`}).reverse().join('');
  el.querySelectorAll('[data-tm]').forEach(b=>b.onclick=()=>tl(+b.dataset.tm));el.querySelectorAll('[data-ts]').forEach(b=>b.onclick=()=>brief(+b.dataset.ts))}
 function skip(){const A=M[S.m],k=S.m+'-'+S.p;if(!pass(k)){sv['s'+k]=1;save()}if(PZ)PZ.style.display='none';G=null;held=false;document.body.classList.remove('play','dk','lk','drag','tut','fl','co');AB.classList.remove('on');for(const t in TH)TH[t]=0;try{SFX.eng(0)}catch(e){}
  if(S.p<A.p.length-1)brief(S.p+1);else tl(S.m)}
@@ -1023,7 +1022,7 @@ function ldS0(){const gy=H*.6,shX=W*.3,sc=H*.42/(G.h+150),T=G.trav,P0=.25,P1=2.2
  const st=sxw(G.X0),srad=Math.max(10,40*sc*ps);
  if(st>-srad&&st<W+srad){x.fillStyle='rgba(225,228,236,.35)';x.beginPath();x.ellipse(st,ys,srad,srad*.28,0,0,7);x.fill();x.strokeStyle='rgba(93,255,168,'+(.6+.4*Math.sin(pt*5))+')';x.lineWidth=2;x.stroke();
   x.strokeStyle='rgba(93,255,168,.5)';x.setLineDash([2,4]);x.beginPath();x.moveTo(st,ys);x.lineTo(st,ys-H*.1);x.stroke();x.setLineDash([]);x.fillStyle='#5dffa8';x.font=F(700,11);x.textAlign='center';x.fillText('LANDING SITE',st,ys-H*.1-6)}
- else{const rt=st>W;x.fillStyle='#5dffa8';x.font=F(700,12);x.textAlign=rt?'right':'left';const ax=rt?W-14:14,d=Math.abs(G.X0-T);x.fillText((rt?'':'← ')+'LANDING SITE '+(d>=1e3?(d/1e3).toFixed(1)+' km':Math.round(d)+' m')+(rt?' →':''),ax,ys-8)}
+ 
  // flown path and predicted path
  if(G.tp&&G.tp.length){x.strokeStyle='rgba(255,255,255,.25)';x.lineWidth=1.5;x.beginPath();G.tp.forEach(([d,h])=>x.lineTo(sxw(d),syw(h)));x.lineTo(shX,syw(G.h));x.stroke()}
  const sp=T+G.dst,dd=sp-G.X0,dc=Math.abs(dd)<=40?'#5dffa8':Math.abs(dd)<=150?'#ffb067':'#ff5468';
