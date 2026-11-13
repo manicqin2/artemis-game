@@ -98,7 +98,7 @@ body.play #skb{display:block}
 #tlp .tst.cur{color:var(--ac);font-weight:700}#tlp .tst.ok em{color:var(--ok)}
 #tlp .tfu{font-size:10px;letter-spacing:.12em;color:var(--dim);margin:8px 0 2px;text-transform:uppercase}
 #tlp.rail{display:none;left:8px;pointer-events:none;opacity:.9}body.play #tlp.rail{display:flex}
-#tlp.rail{flex-direction:column;align-items:center;gap:6px;padding:8px 5px;border-radius:14px;background:#0a1022a0;border:1px solid #ffffff18}
+#tlp.rail{flex-direction:column-reverse;align-items:center;gap:6px;padding:8px 5px;border-radius:14px;background:#0a1022a0;border:1px solid #ffffff18}
 #tlp.rail b{font-size:10px;color:var(--dim);letter-spacing:.04em}#tlp.rail b.ok{color:var(--ok)}#tlp.rail b.cur{color:var(--ac)}
 #tlp.rail i{width:8px;height:8px;border-radius:50%;background:#ffffff30}#tlp.rail i.ok{background:var(--ok)}#tlp.rail i.sk{background:#8b96b0}#tlp.rail i.cur{width:12px;height:12px;background:var(--ac);box-shadow:0 0 10px var(--ac)}
 @media (max-width:520px){#skb{width:36px;padding:0;font-size:14px}#skb span{display:none}body.play.dk .chip span{display:none}}
@@ -994,7 +994,7 @@ function dkS(){const P=G.P,D=P.dk,lun=S.m>=3,cx=W/2,cy=H*.36,f=Math.min(W,H)*1.1
  // orientation readouts in degrees
  if(!look&&!G.fin){const box=(t,v,c,px,py)=>{x.fillStyle='rgba(5,8,16,.62)';rr(px-50,py-28,100,40,9);x.textAlign='center';x.fillStyle='#8b96b0';x.font=F(400,10);x.fillText(t,px,py-13);x.fillStyle=c;x.font=F(700,16);x.fillText(v,px,py+5)},col=v=>Math.abs(v)<1.2?'#5dffa8':Math.abs(v)<5?'#ffb067':'#ff5468';
   box('ROLL',Math.abs(G.rl)<1.2?'0° ✓':Math.abs(G.rl).toFixed(1)+'° '+(G.rl>0?'⟲':'⟳'),col(G.rl),cx,cy-96);
-  if(G.Z<5){box('NOSE LEFT/RIGHT',Math.abs(G.yw)<1.2?'0° ✓':Math.abs(G.yw).toFixed(1)+'° '+(G.yw>0?'left':'right'),col(G.yw),cx+(W<420?0:120),cy+(W<420?96:0));box('NOSE UP/DOWN',Math.abs(G.pt)<1.2?'0° ✓':Math.abs(G.pt).toFixed(1)+'° '+(G.pt>0?'down':'up'),col(G.pt),cx-(W<420?0:120),cy+(W<420?140:0))}}
+  }
  x.restore();
  if(G.tut==3&&p0&&!look){x.strokeStyle='#ffb067';x.lineWidth=2;x.setLineDash([6,6]);x.beginPath();x.moveTo(bs[0],bs[1]);x.lineTo(p0[0],p0[1]);x.stroke();x.setLineDash([]);x.fillStyle='#ffb067';x.font=F(700,12);x.textAlign='center';x.fillText('DOCKING PORT',p0[0],p0[1]-p0[2]*1.1-8)}
  const py1=H*.1+62;if(look){x.fillStyle='rgba(5,8,16,.7)';rr(W/2-150,py1,300,40,10);x.textAlign='center';x.fillStyle='#62e3ff';x.font=F(700,13);x.fillText('Looking around · Orion keeps flying',W/2,py1+16);x.fillStyle='#c4cbdc';x.font=F(400,11);x.fillText('Double-click or tap “Docking view” to look ahead again',W/2,py1+32)}
