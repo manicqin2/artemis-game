@@ -71,7 +71,7 @@ body.play.dk #c{cursor:grab}body.play.dk.drag #c{cursor:grabbing}
 body.play #skb{display:block}
 #pk{margin-top:8px;padding:12px 22px;border-radius:14px;border:1px solid var(--ln);background:var(--cd);color:var(--ink);font:700 15px "Space Grotesk",system-ui,sans-serif;cursor:pointer}
 .bf .lead{font-size:17px;color:var(--ink);margin:0 0 14px}
-.bf .goal{font-size:17px;font-weight:600;color:#eef2fb}.bf .why{background:#62e3ff12;border:1px solid #62e3ff40;border-radius:14px;padding:11px 14px;margin:0 0 14px}
+.bf .goal{font-size:20px;font-weight:700;line-height:1.35;color:#fff;padding:14px 16px}.bf details.more .st1 span{font-size:17px}@media (min-width:1000px){.bf .goal{font-size:23px}}.bf .why{background:#62e3ff12;border:1px solid #62e3ff40;border-radius:14px;padding:11px 14px;margin:0 0 14px}
 .bf .why b,.bf .steps>b{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--cy);margin-bottom:4px}
 .bf .steps{margin:0 0 12px}.bf .steps>b{color:var(--ac)}
 .st1{display:flex;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid #ffffff10}
@@ -107,7 +107,7 @@ body.play #skb{display:block}
  .row b{font-size:19px}.row small{font-size:14px}.row .ds2{font-size:15px}.tm{font-size:15px}.how{font-size:16px}
  .btn{font-size:18px;padding:17px 24px}#hud{font-size:15px}#hud .chip b{font-size:21px}#hud .chip small{font-size:13px}#hud .chip span{font-size:16px}
  .bf .lead{font-size:20px}.st1{font-size:17px}.st1 i{flex-basis:40px;height:40px;font-size:20px}.keys{font-size:14px}.more{font-size:16px}
- #act{font-size:22px;height:96px}#tut{font-size:16px;width:min(92vw,540px)}#pzo span{font-size:18px}#pq,#pk{font-size:17px}#fd{font-size:16px}#skb{font-size:15px}
+ #act{font-size:22px;height:96px}#tut{font-size:17px;width:min(92vw,560px)}#tut p{font-size:17px;line-height:1.5}#pzo span{font-size:18px}#pq,#pk{font-size:17px}#fd{font-size:16px}#skb{font-size:15px}
  #dp .lab{font-size:12px}#dp button{font-size:20px}#dp .fb button{font-size:17px}#dp button.t{font-size:14px}.win{font-size:16px}.qz p{font-size:18px}.big{font-size:52px}
 }
 
@@ -442,6 +442,7 @@ function trk(){
 const MU=3.986e14,MM=4.905e12,RE=6.371e6,RMo=1.737e6,DM=3.844e8,WM=2.6617e-6,ATM=1.2e5,FD=$('#fd'),
 mq=(t,p)=>[DM*Math.cos(p+WM*t),DM*Math.sin(p+WM*t)],km=v=>Math.round(v/1e3).toLocaleString();
 FD.onclick=()=>{if(!G||G.fin||G.rd>0)return;if(G.P.m=='orb')return flD();G.co=1;document.body.classList.add('co')};
+const tip=(t,y,c)=>{let sz=20;x.save();x.shadowBlur=0;x.globalAlpha=1;x.textAlign='center';x.font=F(700,sz);while(x.measureText(t).width>W-60&&sz>12)x.font=F(700,--sz);const fz=parseFloat(x.font.match(/([\d.]+)px/)[1]),w=x.measureText(t).width+34,h=fz+20;x.fillStyle='rgba(5,8,16,.82)';rr(W/2-w/2,y-fz*.36-h/2,w,h,h/2);x.strokeStyle=c;x.globalAlpha=.55;x.lineWidth=1.5;x.stroke();x.globalAlpha=1;x.fillStyle=c;x.fillText(t,W/2,y);x.restore()};
 const fit=(t,y,sz,wt)=>{x.font=F(wt,sz);while(x.measureText(t).width>W-24&&sz>9)x.font=F(wt,--sz);x.fillText(t,W/2,y)};
 function ac(s,Z,th,lf){
  const px=s[0],py=s[1],vx=s[2],vy=s[3],r=Math.hypot(px,py),v=Math.hypot(vx,vy)||1,[mx,my]=mq(s[4],Z.ph),dx=mx-px,dy=my-py,d=Math.hypot(dx,dy),h=r-RE;
@@ -604,7 +605,7 @@ function flA(){
  else{x.font=F(700,20);x.fillText('T+ '+clk(s[4]),W/2,H*.095);if(G.mt>0){x.globalAlpha=cl(G.mt);x.fillStyle=G.mc;x.font=F(700,22);x.fillText(G.msg,W/2,H*.14);x.globalAlpha=1}}
  x.shadowBlur=0;x.beginPath();x.roundRect?x.roundRect(px0,y0-30,pw,98,16):x.rect(px0,y0-30,pw,98);x.fillStyle='rgba(6,10,24,.62)';x.fill();x.strokeStyle='rgba(255,255,255,.14)';x.lineWidth=1;x.stroke();
  if(G.pp<2){x.fillStyle='#eef2fb';fit(G.pp==0?'Pad 39B · all systems go':G.wait?'T−6 · engines ready':'Main engines running',y0,20,700);
-  x.fillStyle=G.wait?'#ffb067':'#9fa9c0';if(G.wait)x.globalAlpha=.65+.35*Math.sin(pt*8);fit(G.pp==0?'Press Start countdown':G.wait?'Press IGNITE ENGINES':'Hold on…',y0+32,17,700);x.globalAlpha=1}
+  x.fillStyle=G.wait?'#ffb067':'#9fa9c0';if(G.wait)x.globalAlpha=.65+.35*Math.sin(pt*8);fit(G.pp==0?'Press Start countdown':G.wait?'Press IGNITE ENGINES':'Hold on…',y0+34,20,700);x.globalAlpha=1}
  else{x.fillStyle='#eef2fb';fit('Altitude '+(h/1e3).toFixed(1)+' km · '+Math.round(v).toLocaleString()+' m/s',y0,21,700);
   x.fillStyle='#9fa9c0';fit('Nose '+Math.round(th/RAD)+'° · Path '+Math.round(gam/RAD)+'° · '+(G.sep?'core stage only':'boosters + core'),y0+22,14,400);
   x.fillStyle='#ffffff22';rr(W/2-70,y0+36,140,6,3);x.fillStyle=lr<.6?'#5dffa8':lr<.85?'#ffb067':'#ff5468';rr(W/2-70,y0+36,Math.max(2,140*lr),6,3);
@@ -657,8 +658,8 @@ function flM(){
  x.fillStyle='#eef2fb';fit('Altitude '+km(r-RE)+' km · '+Math.round(v).toLocaleString()+' m/s',y0+26,21,700);
  x.fillStyle='#8b96b0';fit('Low point '+km(o.pe)+' km · High point '+(o.ap<1e10?km(o.ap)+' km':'none (escape)'),y0+48,14,400);
  let fy=y0+68;
- if(P.m=='orb'){x.fillStyle=o.pe>=1.5e5?'#5dffa8':'#ffb067';fit(o.pe>=1.5e5?'Safe orbit! Release, then press Done':G.dv>1?'Keep burning until the dotted path clears the Earth':'Hold to burn inside the green zone',fy,15,700);fy+=20}
- if(P.m=='tli'){x.fillStyle=G.lk?'#5dffa8':'#ffb067';fit(G.lk?'Trajectory locked! Coasting to the Moon…':G.dv>=G.dm?'Out of fuel: coasting…':G.dv<1?'Hold to burn inside the green zone':'Burn until the path loops the Moon',fy,15,700);fy+=19}
+ if(P.m=='orb'){x.fillStyle=o.pe>=1.5e5?'#5dffa8':'#ffb067';tip(o.pe>=1.5e5?'Safe orbit! Let go, then press Done':G.dv>1?'Keep holding until the dotted path clears the Earth':'Hold to burn inside the green zone',fy+10,x.fillStyle);fy+=40}
+ if(P.m=='tli'){x.fillStyle=G.lk?'#5dffa8':'#ffb067';tip(G.lk?'Path locked! Coasting to the Moon…':G.dv>=G.dm?'Out of fuel: coasting…':G.dv<1?'Hold to burn inside the green zone':'Keep holding until the path loops the Moon',fy+10,x.fillStyle);fy+=40}
  if(P.m=='tli'){const h=pd.dm-RMo;x.fillStyle=h<0?'#ff5468':h<3e7?'#5dffa8':h<6e7?'#ffb067':'#ff5468';
   fit(h<0?'Path hits the Moon':pd.dm>1.5e8?'Path misses the Moon':'Moon flyby: '+km(h)+' km up',fy,15,700);fy+=20;
   if(h>=0&&pd.dm<1.5e8){x.fillStyle=pd.rt?'#5dffa8':'#ff5468';fit(pd.rt?'Free return: Orion comes home':pd.esc?'Escapes Earth: never comes back':'Does not come back in time',fy,15,700);fy+=20}}
@@ -688,7 +689,7 @@ function flR(){
    x.font=F(400,11);x.fillStyle='#8b96b0';x.textAlign='left';x.fillText('skips out',gx0,gy+24);x.textAlign='right';x.fillText('burns up',gx1,gy+24);x.textAlign='center';
    x.shadowColor='rgba(0,0,0,.75)';x.shadowBlur=7;x.fillStyle=zc;x.font=F(700,30);x.fillText(pa==null?'No entry':pa.toFixed(1)+'°',W/2,gy+54);
    x.fillStyle='#c4cbdc';fit('Target '+gc.toFixed(1)+'° ±'+bw.toFixed(1)+'°',gy+78,13,400);
-   x.globalAlpha=.7+.3*Math.sin(pt*5);x.fillStyle='#eef2fb';x.font=F(700,18);x.fillText('Set your entry angle',W/2,W<700?Math.max(H*.085,98):H*.085);x.globalAlpha=1;x.shadowBlur=0;
+   x.shadowBlur=0;tip('Hold = steeper · let go = flatter',W<700?Math.max(H*.085,104):H*.085,'#eef2fb');
   }else{
    x.beginPath();G.tr.forEach((q,i)=>x[i?'lineTo':'moveTo'](X(q[0]),Y(q[1])));x.strokeStyle='rgba(255,176,103,.35)';x.lineWidth=6;x.stroke();x.strokeStyle='#ffd8a8';x.lineWidth=1.8;x.stroke();
    const px=X(Math.atan2(s[0],s[1])*RE-d0),py=Y(al),h=cl(G.g/10),sk=G.sk,dp=Math.min(.05,pt-(G.lp||pt));G.lp=pt;
@@ -697,7 +698,7 @@ function flR(){
    x.globalAlpha=1;orion(px,py,u,Math.atan2(-vt,-vr));
    if(h>.05){x.globalCompositeOperation='lighter';const rg=u*(2.5+h*5),gg=x.createRadialGradient(px,py,0,px,py,rg);gg.addColorStop(0,`rgba(255,150,70,${.15+h*.5})`);gg.addColorStop(1,'rgba(255,80,60,0)');x.fillStyle=gg;x.beginPath();x.arc(px,py,rg,0,7);x.fill();x.fillStyle='rgba(255,210,140,.85)';G.sk.forEach(q=>x.fillRect(q.x,q.y,2,2));x.globalCompositeOperation='source-over'}
    const tg=-(2*Math.max(0,al/1e3-20)+5),cue=al>1.2e5?['Skipping: coast…','#8b96b0']:vr<tg-20?['▲ HOLD: lift up','#5dffa8']:vr>tg+20?['▼ RELEASE: dive','#ffb067']:['● On profile','#62e3ff'];
-   x.textAlign='center';x.shadowColor='rgba(0,0,0,.75)';x.shadowBlur=7;x.fillStyle=cue[1];x.font=F(700,19);x.fillText(cue[0],W/2,H*.605);
+   x.textAlign='center';x.shadowColor='rgba(0,0,0,.75)';x.shadowBlur=7;tip(cue[0],H*.6,cue[1]);
    x.fillStyle=G.g<=6?'#5dffa8':G.g<=9?'#ffb067':'#ff5468';x.font=F(700,36);x.fillText(G.g.toFixed(1)+' g',W/2,H*.675);
    x.fillStyle='#c4cbdc';fit('Peak '+G.gp.toFixed(1)+' g · '+Math.round(v).toLocaleString()+' m/s · '+(al/1e3).toFixed(0)+' km · entry '+G.ai.toFixed(1)+'°',H*.675+24,13,400);x.shadowBlur=0}
  }else{
@@ -715,7 +716,7 @@ function flR(){
   x.textAlign='center';x.shadowColor='rgba(0,0,0,.75)';x.shadowBlur=7;
   if(G.cs==0?(al<8.5e3&&al>5.5e3):G.cs==1?(al<3.5e3&&al>1.5e3):0){x.globalAlpha=.6+.4*Math.sin(pt*9);x.fillStyle='#5dffa8';x.font=F(700,22);x.fillText(G.cs?'DEPLOY MAIN CHUTES NOW':'DEPLOY DROGUES NOW',W/2,H*.1);x.globalAlpha=1}
   x.fillStyle='#eef2fb';fit(Math.round(v)+' m/s · '+(al/1e3).toFixed(1)+' km',H*.66,24,700);
-  x.fillStyle='#c4cbdc';fit(G.cs==0?'Tap to deploy the drogue chutes in the green band':G.cs==1?'Tap to deploy the main chutes in the green band':'Main chutes out: ride it down to the water',H*.66+26,14,400);x.shadowBlur=0}
+  x.fillStyle='#c4cbdc';tip(G.cs==0?'Tap when DEPLOY DROGUES appears':G.cs==1?'Tap when DEPLOY MAIN CHUTES appears':'Chutes out: ride it down to the water',H*.66+44,'#eef2fb');x.shadowBlur=0}
  if(G.mt>0){x.globalAlpha=cl(G.mt);x.fillStyle=G.mc;x.font=F(700,20);x.fillText(G.msg,W/2,H*.2);x.globalAlpha=1}
 }
 /* ---------- lunar surface ---------- */
