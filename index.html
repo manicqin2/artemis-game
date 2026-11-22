@@ -281,7 +281,7 @@ function start(){
  G={P,i:0,et:0,ph:R()*2,pos:0,q:[],sky:.1,pr:0,parts:[],f:{srb:1,las:1,core:1,arr:0},msg:'',mc:'',mt:0,fl:0,lock:0,end:0,rd:1.4,ra:0,s:0,cs:0,on:0,el:0,d:P.path?P.path[0]:0,vd:0,ins:0,tr:[],fin:0,y:1,v:.05,fu:1};if(P.k=='ld')ldI();else if(P.k=='la')laI();else if(P.k=='cor')dkI(P.dk);
  FX.clear();PZ.style.display='none';document.body.classList.remove('co');if(P.k=='fl'){fli();document.body.classList.toggle('fl',P.m=='orb'||P.m=='tli');FD.textContent=P.m=='tli'?'Coast to the Moon ▸':'Done ✓'}else document.body.classList.remove('fl');
  document.body.classList.add('play');AB.textContent=P.k=='tim'?'Tap':P.k=='fl'?(P.m=='rtn'?'Hold to steepen':P.m=='asc'?'Start countdown ▸':'Hold to burn'):P.k=='ld'?'Hold to fire engine':P.k=='la'?'Hold to tilt':P.fn?'Hold to thrust':'Hold to lift';
- hudP();tlR();if(CO.go){CO.go=0;G.pz=1;setTimeout(coach,60)}
+ hudP();tlR();if(CO.go){CO.go=0;G.pz=1;setTimeout(coach,500)}
 }
 function tap(){
  const P=G.P,ev=P.e[G.i];if(!ev||G.lock||G.rd>0)return;
@@ -1124,7 +1124,7 @@ addEventListener('keydown',e=>{const a=KM[e.code];if(a&&document.body.classList.
 
 const HS={},CO={go:0},COE=document.createElement('div');COE.id='coach';document.body.appendChild(COE);
 function coachOff(){COE.classList.remove('on');COE.innerHTML='';if(G&&!G.fin&&PZ.style.display!='flex')G.pz=0;held=false;AB.classList.remove('on')}
-COE.onclick=coachOff;
+COE.onclick=coachOff;addEventListener('resize',()=>{if(COE.classList.contains('on'))setTimeout(coach,50)});
 addEventListener('keydown',e=>{if(COE.classList.contains('on')&&(e.code=='Space'||e.code=='Enter'||e.code=='Escape')){e.preventDefault();e.stopImmediatePropagation();coachOff()}},true);
 function coach(){
  if(window.NOTUT||!G||G.fin){if(G&&!G.fin)G.pz=0;return}
